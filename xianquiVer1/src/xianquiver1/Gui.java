@@ -82,10 +82,8 @@ public class Gui {
     //LOGIN
     
    panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
-   posicion.fill = GridBagConstraints.NONE;
-   posicion.anchor = GridBagConstraints.CENTER;
-   
     funcionesGUI.posicion(posicion, 0, 0);
+    posicion.fill = GridBagConstraints.VERTICAL;   
     posicion.gridwidth=2;
     posicion.anchor = GridBagConstraints.CENTER;
     panelLogin.add(labelLogin,posicion);
@@ -112,6 +110,11 @@ public class Gui {
     posicion.weightx=1.0;
     panelLogin.add(fieldUser,posicion);
     
+    funcionesGUI.posicion(posicion,1,2);
+    posicion.fill = GridBagConstraints.HORIZONTAL;
+    posicion.weightx=1.0;
+    panelLogin.add(fieldPassword,posicion);
+    
     frame.setVisible(true);
 
     }
@@ -130,5 +133,6 @@ public class Gui {
     JLabel labelPassword = new JLabel();
     JButton btnOk = new JButton();
     JTextField fieldUser = new JTextField();
+    JPasswordField fieldPassword = new JPasswordField();
     
 }

@@ -18,15 +18,15 @@ public class Users {
     int puntos;
     boolean activo;
     LocalDate fechaIngreso; 
-    
-    public void Users(String usuario, String password){
-    this.usuario = usuario;
-    this.password = password;
-    this.puntos = puntos=0;
-    this.activo = activo = true;
-    this.partidas = partidas = null;
-    this.fechaIngreso = fechaIngreso = LocalDate.now();
-    }   
+ 
+    public void Users(String usuario, String password) {
+        this.usuario = usuario;
+        this.password = password;
+        this.puntos = puntos = 0;
+        this.activo = activo = true;
+        this.partidas = partidas = null;
+        this.fechaIngreso = fechaIngreso = LocalDate.now();
+    }
 
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
