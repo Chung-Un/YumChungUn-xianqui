@@ -4,23 +4,48 @@
  */
 package xianquiver1;
 
-import java.util.*;
 
 /**
  *
  * @author chung
  */
 public class manejoPlayers implements Almacenamiento<Users> {
-ArrayList<Users> listaPlayers;
-    
+Users[] players  = new Users[100];
+int numJugadores=0;
+
     @Override
     public void crear(Users user) {
-        listaPlayers.add(user);
+        if (numJugadores>=players.length){
+            resize();}
+        else{
+            players[numJugadores++] = user;
+        }
     }
 
     @Override
     public void borrar(Users user) {
-        listaPlayers.remove(user);
+        for(int index=0; index< players.length; index++){
+            if(players[index]!= null && players[index].usuario.equals(user.usuario)){
+                players[index] = players[numJugadores-1];
+                numJugadores--;
+                break;
+            }
+        }
+    }
+    
+    public void resize(){
+        Users[] playersResized = new Users[players.length*2];
+        System.arraycopy(players, 0, playersResized, 0, players.length);
+        players = playersResized;
+    }
+    
+    public Users buscarPlayerPorUsuario(String nombreUsuario){
+        for (int index=0; index< players.length; index++){
+            if(players[index]!=null && players[index].usuario.equals(nombreUsuario) ){
+            return players[index];
+            }
+        }
+        return null;
     }
     
 }

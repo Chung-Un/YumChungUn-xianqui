@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.*;
 
 
@@ -37,8 +39,7 @@ public class Gui {
     panelInicio.add(labelInicio,posicion);
     
     btnLogin = funcionesGUI.hacerbtn(btnLogin,"Login");
-    posicion.gridx =0 ;
-    posicion.gridy = 1;
+    funcionesGUI.posicion(posicion, 0, 1);
     panelInicio.add(btnLogin, posicion);
     
    btnLogin.addActionListener(new ActionListener() {
@@ -51,8 +52,7 @@ public class Gui {
     });
    
    btnCrear = funcionesGUI.hacerbtn(btnCrear, "Crear player");
-   posicion.gridx=0;
-   posicion.gridy = 2;
+   funcionesGUI.posicion(posicion, 0, 2);
    panelInicio.add(btnCrear,posicion);
    
    btnCrear.addActionListener(new ActionListener() {
@@ -63,25 +63,9 @@ public class Gui {
         }
     });
    
+   //LOGIN
     
-    btnSalir = funcionesGUI.hacerbtn(btnSalir,"Salir");
-    posicion.gridx = 0;
-    posicion.gridy= 3;
-    panelInicio.add(btnSalir,posicion);
-    
-    btnSalir.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            frame.dispose();  
-        }
-    });
-    
-    panelCrear= funcionesGUI.hacerPanel(panelCrear,labelCrear, "Crear Player");
-    
-    
-    //LOGIN
-    
-   panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
+    panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
     funcionesGUI.posicion(posicion, 0, 0);
     posicion.fill = GridBagConstraints.VERTICAL;   
     posicion.gridwidth=2;
@@ -114,6 +98,79 @@ public class Gui {
     posicion.fill = GridBagConstraints.HORIZONTAL;
     posicion.weightx=1.0;
     panelLogin.add(fieldPassword,posicion);
+    
+    
+    btnOk.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          String usuario= fieldUser.getText();
+          String password = fieldPassword.toString();
+         
+        }
+    });
+    
+   
+   //CREAR PLAYER
+   
+    panelCrear = funcionesGUI.hacerPanel(panelCrear, labelCrear, "Crear Player");
+    funcionesGUI.posicion(posicion, 0, 0);
+    posicion.fill = GridBagConstraints.VERTICAL;   
+    posicion.gridwidth=2;
+    posicion.anchor = GridBagConstraints.CENTER;
+    panelCrear.add(labelCrear,posicion);
+   
+   
+    funcionesGUI.posicion(posicion, 0, 1);
+    posicion.gridwidth=1;
+    panelCrear.add(labelUsuario,posicion);
+    
+    funcionesGUI.posicion(posicion, 0, 2);
+    posicion.gridwidth = 1;
+    panelCrear.add(labelPassword,posicion);
+  
+    funcionesGUI.posicion(posicion, 0, 3);
+    posicion.anchor = GridBagConstraints.CENTER;
+    posicion.gridwidth = 2;
+    panelLogin.add(btnOk, posicion);
+    
+    funcionesGUI.posicion(posicion,1,1);
+    posicion.fill = GridBagConstraints.HORIZONTAL;
+    posicion.weightx=1.0;
+    panelLogin.add(fieldUser,posicion);
+    
+    funcionesGUI.posicion(posicion,1,2);
+    posicion.fill = GridBagConstraints.HORIZONTAL;
+    posicion.weightx=1.0;
+    panelLogin.add(fieldPassword,posicion);
+    
+    
+    btnOk.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          String usuario= fieldUser.getText();
+          String password = fieldPassword.toString();
+         
+        }
+    });
+    
+   
+   
+   
+    //SALIR
+    btnSalir = funcionesGUI.hacerbtn(btnSalir,"Salir");
+    funcionesGUI.posicion(posicion,0,3);
+    panelInicio.add(btnSalir,posicion);
+    
+    btnSalir.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();  
+        }
+    });
+    
+    panelCrear= funcionesGUI.hacerPanel(panelCrear,labelCrear, "Crear Player");
+    
+    
     
     frame.setVisible(true);
 

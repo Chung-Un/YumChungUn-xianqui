@@ -5,7 +5,6 @@
 package xianquiver1;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  *
@@ -13,21 +12,28 @@ import java.util.ArrayList;
  */
 public class Users {
    
-    ArrayList<String> partidas = new ArrayList<>();
+    String[] partidas = new String[100];
     String usuario, password;
     int puntos;
     boolean activo;
     LocalDate fechaIngreso; 
  
-    public void Users(String usuario, String password) {
+    public Users(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
-        this.puntos = puntos = 0;
+        this.puntos = 0;
         this.activo = activo = true;
-        this.partidas = partidas = null;
-        this.fechaIngreso = fechaIngreso = LocalDate.now();
+        this.fechaIngreso = LocalDate.now();
     }
 
+     public String[] getPartidas() {
+        return partidas;
+    }
+
+    public void setPartidas(String[] partidas) {
+        this.partidas = partidas;
+    }
+    
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
@@ -36,13 +42,7 @@ public class Users {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public ArrayList<String> getPartidas() {
-        return partidas;
-    }
-
-    public void setPartidas(ArrayList<String> partidas) {
-        this.partidas = partidas;
-    }
+    
 
     public String getUsuario() {
         return usuario;
