@@ -17,6 +17,7 @@ public class XianquiVer1 {
         Gui gui = new Gui();
         
         gui.pantallaInicio();
+//        gui.menuPrincipal();
        
         // TODO code application logic here
     }

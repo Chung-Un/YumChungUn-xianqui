@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
@@ -50,7 +52,7 @@ public class funcionesGUI {
     }
     
     
-    public static JPanel hacerPanel(JPanel panel,JLabel label, String titulo){
+    public static JPanel hacerPanel(JPanel panel,JLabel label, String titulo){    
     panel.setBackground(new Color (248,64,0));
     label = hacerLabelTitulo(label, titulo );
     panel.setLayout(new GridBagLayout());
@@ -63,4 +65,46 @@ public class funcionesGUI {
     posicion.gridy = y;
     
     }
+    
+   public static void mostrarMenuJugar(JFrame frame) {
+       JPopupMenu menuJugar = new JPopupMenu();
+       JMenuItem nuevaPartida = new JMenuItem("Nueva Partida");
+
+       menuJugar.add(nuevaPartida);
+       menuJugar.show(frame, 200, 200);
+   }
+
+   public static void mostrarMenuCuenta(JFrame frame) {
+       JPopupMenu menuCuenta = new JPopupMenu();
+       JMenuItem verInfo = new JMenuItem("Ver mi información");
+       JMenuItem cambiarPassword = new JMenuItem("Cambiar Password");
+       JMenuItem cerrarCuenta = new JMenuItem("Cerrar mi cuenta");
+       
+       menuCuenta.add(cambiarPassword);
+       menuCuenta.add(cerrarCuenta);
+       menuCuenta.add(verInfo);
+       menuCuenta.show(frame, 200, 250);
+   }
+
+   public static void mostrarMenuReportes(JFrame frame) {
+       JPopupMenu menuReportes = new JPopupMenu();
+       JMenuItem ranking = new JMenuItem("Ranking jugadores");
+       JMenuItem logs = new JMenuItem("Logs de mis últimos juegos");
+
+       menuReportes.add(ranking);
+       menuReportes.add(logs);
+       menuReportes.show(frame, 200, 300);
+   }  
+   
+   public static void regresar (JButton btnRegresar, JPanel panelActual, JPanel panelVolver){
+       
+       btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelActual.setVisible(false);
+                panelVolver.setVisible(true);
+            }
+        });
+       
+   }
 }

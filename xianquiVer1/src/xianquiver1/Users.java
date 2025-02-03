@@ -14,7 +14,7 @@ public class Users {
    
     String[] partidas = new String[100];
     String usuario, password;
-    int puntos;
+    int puntos,partidasGanadas,partidasEmpatadas,partidasPerdidas;
     boolean activo;
     LocalDate fechaIngreso; 
  
@@ -22,6 +22,9 @@ public class Users {
         this.usuario = usuario;
         this.password = password;
         this.puntos = 0;
+        this.partidasEmpatadas=0;
+        this.partidasGanadas=0;
+        this.partidasPerdidas=0;
         this.activo = activo = true;
         this.fechaIngreso = LocalDate.now();
     }
