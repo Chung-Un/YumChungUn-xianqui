@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author chung
  */
 public class manejoPlayers implements Almacenamiento<Users> {
-Users[] players  = new Users[100];
+static Users[] players  = new Users[100];
 int numJugadores=0;
 
     @Override
@@ -26,22 +26,23 @@ int numJugadores=0;
 
     @Override
     public void borrar(Users user) {
-        for(int index=0; index< players.length; index++){
-            if(players[index]!= null && players[index].usuario.equals(user.usuario)){
-                players[index] = players[numJugadores-1];
+        for (int index = 0; index < numJugadores; index++) {
+            if (players[index] != null && players[index].usuario.equals(user.usuario)) {
+                players[index] = players[numJugadores - 1];
+                players[numJugadores - 1] = null;
                 numJugadores--;
-                break;
-            }
+            break;
         }
     }
+}
     
-    public void resize(){
+    public static void resize(){
         Users[] playersResized = new Users[players.length*2];
         System.arraycopy(players, 0, playersResized, 0, players.length);
         players = playersResized;
     }
     
-    public Users buscarPlayerPorUsuario(String nombreUsuario){
+    public static Users buscarPlayerPorUsuario(String nombreUsuario){
         for (int index=0; index< players.length; index++){
             if(players[index]!=null && players[index].usuario.equals(nombreUsuario) ){
             return players[index];
@@ -50,7 +51,7 @@ int numJugadores=0;
         return null;
     }
     
-    public boolean loginPosible(){
+    public static  boolean loginPosible(){
     
         if (players[0] == null){
            JOptionPane.showMessageDialog(null,"Aun no existen usuarios, no es posible hacer LogIn", "Error", JOptionPane.ERROR_MESSAGE);
@@ -61,27 +62,27 @@ int numJugadores=0;
         }
     
     }
-    public boolean verificarLogin(String usuario, String password){
+    public Users verificarLogin(String usuario, String password){
        Users player = buscarPlayerPorUsuario(usuario);
        
        if (player == null){
             JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
-       return false;
+       return null;
        }
        else{
            boolean passwordCorrecta = verificarPassword(player,password);
            if(passwordCorrecta){
-               JOptionPane.showMessageDialog(null, "Bienvenido " + player.usuario, "Bienvenido", JOptionPane.PLAIN_MESSAGE);
-               return true;
+               JOptionPane.showMessageDialog(null, "Bienvenido " + player.usuario, "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+               return player;
            }
            else{
                JOptionPane.showMessageDialog(null, "Password Incorrecta, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
-               return false;
+               return null;
            }
       }
       }  
     
-    public boolean verificarLongitudPassword(String password){
+    public static boolean verificarLongitudPassword(String password){
     
         if (password.length() == 5 ){
         return true;
@@ -92,7 +93,7 @@ int numJugadores=0;
         }      
     }
     
-    public boolean verificarPassword( Users user,String password){
+    public static boolean verificarPassword( Users user,String password){
     
         if(user.password.equals(password)){
         return true;
@@ -122,39 +123,45 @@ int numJugadores=0;
         }
     }
     
-    public String mostrarInformacion(Users player){
-        String informacion = "Nombre de usuario: " + player.usuario + "\nPuntos: " + player.puntos + "\nFecha de ingreso: " + player.fechaIngreso 
-           + "Partidas ganadas: " + String.valueOf(player.partidasGanadas) + "Partidas perdidas: " + String.valueOf(player.partidasPerdidas) + "Partidas empatadas: "+
-                String.valueOf(player.partidasEmpatadas);
+    public static void mostrarInformacion(Users player){
+        JOptionPane.showMessageDialog(null, "Nombre de usuario: " + player.usuario + "\nPuntos: " + player.puntos + "\nFecha de ingreso: " + player.fechaIngreso 
+           + "\nPartidas ganadas: " + String.valueOf(player.partidasGanadas) + "\nPartidas perdidas: " + String.valueOf(player.partidasPerdidas) + "\nPartidas empatadas: "+
+                String.valueOf(player.partidasEmpatadas));
         
-        return informacion;
     }
     
-    public void cambiarPassword (Users player, String passwordVieja, String passwordNueva){
+    public static void cambiarPassword (Users player, String passwordVieja, String passwordNueva){
     
         if(verificarPassword(player,passwordVieja) && verificarLongitudPassword(passwordNueva)){
         player.setPassword(passwordNueva);
-        JOptionPane.showMessageDialog(null, "Password cambiada exitosamente", "Exito", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Password cambiada exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
         else if(!verificarPassword(player,passwordVieja)){
         JOptionPane.showMessageDialog(null, "Password actual incorrecta, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(passwordVieja.equals(passwordNueva)){
+        JOptionPane.showMessageDialog(null,"Password nueva y antigua no pueden ser las mismas", "Error", JOptionPane.ERROR_MESSAGE);
         }
         }
 
     public void eliminarCuenta(Users player){
     int confirmacion= JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar su cuenta?", "Confirmacion", JOptionPane.YES_NO_OPTION );
     
-    switch(confirmacion){
     
-        case JOptionPane.YES_OPTION:
+    
+       if(confirmacion == JOptionPane.YES_OPTION){
                 String password = JOptionPane.showInputDialog("Ingrese su password actual: ");
                 
                 if(verificarPassword(player,password)){
-                    
+                    borrar(player);
+                    JOptionPane.showMessageDialog(null, "Cuenta borrada con exito", "Cuenta eliminada", JOptionPane.INFORMATION_MESSAGE);
                 }
-
+                }
+        
     }
-    }
+    
+    public static void ranking(){}
+    
 }
 
             

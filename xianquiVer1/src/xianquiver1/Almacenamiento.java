@@ -10,7 +10,7 @@ package xianquiver1;
  * @param <t>
  */
 public interface Almacenamiento<t>{
-    
+  
     public void crear(t item);
     public void borrar(t item);
 }

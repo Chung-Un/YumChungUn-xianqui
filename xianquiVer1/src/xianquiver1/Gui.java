@@ -11,6 +11,7 @@ import javax.swing.*;
 public class Gui {
     
     manejoPlayers manejoPlayers = new manejoPlayers();
+    public Users player1;
 
     public void pantallaInicio(){
         frameInicio.setTitle("Xianqui");
@@ -106,10 +107,10 @@ public class Gui {
                 String usuario = fieldUser.getText();
                 String password = new String(fieldPassword.getPassword());
                 
-                boolean loginExitoso= manejoPlayers.verificarLogin(usuario, password);
+                Users loginExitoso= manejoPlayers.verificarLogin(usuario, password);
                 
-                if(loginExitoso){
-                JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.PLAIN_MESSAGE);
+                if(loginExitoso !=null){
+                player1 = loginExitoso;
                 frameInicio.setVisible(false);
                 }
             }
@@ -160,7 +161,8 @@ public class Gui {
                 Users creacionExitosa= manejoPlayers.verificarCrearPlayer(usuario, password);
                 
                 if(creacionExitosa!=null){
-                Users player1 = new Users(creacionExitosa.usuario,creacionExitosa.password);
+                player1 = creacionExitosa;
+                JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.PLAIN_MESSAGE);
                 frameInicio.setVisible(false);
                 menuPrincipal();
                 }
@@ -221,7 +223,7 @@ public class Gui {
         btnCuenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                funcionesGUI.mostrarMenuCuenta(framePrincipal);
+                funcionesGUI.mostrarMenuCuenta(framePrincipal, player1);
                 
             }
         });
@@ -244,42 +246,46 @@ public class Gui {
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              
-                
+              player1 = null;
+              framePrincipal.setVisible(false);
+              pantallaInicio();
+              panelCrear.setVisible(false);
+              panelInicio.setVisible(true);
             }
         });
         
         
+       
        framePrincipal.setVisible(true);
     
     }
    
     
-    JButton btnRegresar = new JButton();
-    JPanel panelReportes = new JPanel();
-    JPanel panelCuenta = new JPanel();
-    JPanel panelJugar = new JPanel();
-    JButton btnJugar = new JButton();
-    JButton btnLogout= new JButton();
-    JButton btnReportes = new JButton();
-    JButton btnCuenta = new JButton();
-    JLabel labelPrincipal = new JLabel();
-    JPanel panelPrincipal= new JPanel();
-    JFrame framePrincipal = new JFrame();
-    JFrame frameInicio = new JFrame();
-    JPanel panelInicio = new JPanel();
-    JPanel panelLogin = new JPanel();
-    JLabel labelInicio = new JLabel();
-    JButton btnLogin = new JButton();
-    JButton btnSalir = new JButton();
-    JButton btnCrear = new JButton();
-    JLabel labelLogin = new JLabel();
-    JLabel labelCrear = new JLabel();
-    JPanel panelCrear = new JPanel();
-    JLabel labelUsuario = new JLabel();
-    JLabel labelPassword = new JLabel();
-    JButton btnOkLogin = new JButton();
-    JButton btnOkCrear = new JButton();
-    JTextField fieldUser = new JTextField();
-    JPasswordField fieldPassword = new JPasswordField();
+    static JButton btnRegresar = new JButton();
+    static JPanel panelRanking = new JPanel();
+    static JPanel panelLogs = new JPanel();
+    static JPanel panelJugar = new JPanel();
+    static JButton btnJugar = new JButton();
+    static JButton btnLogout= new JButton();
+    static JButton btnReportes = new JButton();
+    static JButton btnCuenta = new JButton();
+    static JLabel labelPrincipal = new JLabel();
+    static JPanel panelPrincipal= new JPanel();
+    static JFrame framePrincipal = new JFrame();
+    static JFrame frameInicio = new JFrame();
+    static JPanel panelInicio = new JPanel();
+    static JPanel panelLogin = new JPanel();
+    static JLabel labelInicio = new JLabel();
+    static JButton btnLogin = new JButton();
+    static JButton btnSalir = new JButton();
+    static JButton btnCrear = new JButton();
+    static JLabel labelLogin = new JLabel();
+    static JLabel labelCrear = new JLabel();
+    static JPanel panelCrear = new JPanel();
+    static JLabel labelUsuario = new JLabel();
+    static JLabel labelPassword = new JLabel();
+    static JButton btnOkLogin = new JButton();
+    static JButton btnOkCrear = new JButton();
+    static JTextField fieldUser = new JTextField();
+    static JPasswordField fieldPassword = new JPasswordField();
 }

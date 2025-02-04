@@ -18,13 +18,15 @@ import javax.swing.*;
  *
  * @author chung
  */
-public class funcionesGUI {
+public class funcionesGUI extends Gui {
+    static manejoPlayers manejoPlayers = new manejoPlayers();
+
     public static JLabel hacerLabelTitulo(JLabel label, String text){
     
     label.setText(text);
     label.setHorizontalAlignment(JLabel.CENTER);
     label.setVerticalAlignment(JLabel.CENTER);
-    label.setForeground(Color.white);
+    label.setForeground(new Color(229, 32, 32));
     label.setFont(new Font("Arial" , Font.BOLD, 40));
     
     return label;
@@ -34,7 +36,7 @@ public class funcionesGUI {
     label.setText(text);
     label.setHorizontalAlignment(JLabel.LEFT);
     label.setVerticalAlignment(JLabel.CENTER);
-    label.setForeground(new Color(2, 175, 67));
+    label.setForeground(new Color(229, 32, 32));
     label.setFont(new Font("Arial", Font.BOLD,30));
       
     return label;
@@ -43,9 +45,9 @@ public class funcionesGUI {
     btn.setText(text);
     Dimension dimension = new Dimension(200,250);
     btn.setPreferredSize(dimension);
-    btn.setBackground(Color.WHITE);
-    btn.setForeground(new Color(248,64,0));
-    btn.setFont(new Font("Arial", Font.PLAIN,28));
+    btn.setBackground(new Color(229, 32, 32));
+    btn.setForeground(Color.WHITE);
+    btn.setFont(new Font("Arial", Font.BOLD,28));
     btn.setFocusable(false);
     
     return btn;
@@ -53,7 +55,7 @@ public class funcionesGUI {
     
     
     public static JPanel hacerPanel(JPanel panel,JLabel label, String titulo){    
-    panel.setBackground(new Color (248,64,0));
+    panel.setBackground(new Color (251, 165, 24));
     label = hacerLabelTitulo(label, titulo );
     panel.setLayout(new GridBagLayout());
     
@@ -66,6 +68,7 @@ public class funcionesGUI {
     
     }
     
+    
    public static void mostrarMenuJugar(JFrame frame) {
        JPopupMenu menuJugar = new JPopupMenu();
        JMenuItem nuevaPartida = new JMenuItem("Nueva Partida");
@@ -74,7 +77,7 @@ public class funcionesGUI {
        menuJugar.show(frame, 200, 200);
    }
 
-   public static void mostrarMenuCuenta(JFrame frame) {
+   public static void mostrarMenuCuenta(JFrame frame, Users player) {
        JPopupMenu menuCuenta = new JPopupMenu();
        JMenuItem verInfo = new JMenuItem("Ver mi información");
        JMenuItem cambiarPassword = new JMenuItem("Cambiar Password");
@@ -84,6 +87,29 @@ public class funcionesGUI {
        menuCuenta.add(cerrarCuenta);
        menuCuenta.add(verInfo);
        menuCuenta.show(frame, 200, 250);
+    
+       cambiarPassword.addActionListener(e ->{
+               String passwordActual = JOptionPane.showInputDialog("Ingrese su password actual: ");
+               String passwordNueva = JOptionPane.showInputDialog("Ingrese su password nueva: ");
+               
+               manejoPlayers.cambiarPassword(player,passwordActual,passwordNueva);
+           });
+       
+
+       cerrarCuenta.addActionListener(e ->{
+               manejoPlayers.eliminarCuenta(player);
+               panelPrincipal.setVisible(false);
+               frame.add(panelInicio);
+               frame.add(panelCrear);
+               frame.add(panelLogin);
+               panelInicio.setVisible(true);
+               frame.revalidate();
+               frame.repaint();
+           });
+       
+       verInfo.addActionListener(e ->{
+               manejoPlayers.mostrarInformacion(player);
+           });
    }
 
    public static void mostrarMenuReportes(JFrame frame) {
@@ -94,7 +120,16 @@ public class funcionesGUI {
        menuReportes.add(ranking);
        menuReportes.add(logs);
        menuReportes.show(frame, 200, 300);
+       
+       ranking.addActionListener(e ->{
+               manejoPlayers.ranking();
+           });
+       
+       logs.addActionListener(e ->{
+              
+           });
    }  
+
    
    public static void regresar (JButton btnRegresar, JPanel panelActual, JPanel panelVolver){
        
