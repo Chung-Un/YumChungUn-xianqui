@@ -162,7 +162,7 @@ public class Gui {
                 
                 if(creacionExitosa!=null){
                 player1 = creacionExitosa;
-                JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
                 frameInicio.setVisible(false);
                 menuPrincipal();
                 }
@@ -183,7 +183,7 @@ public class Gui {
         btnSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frameInicio.dispose();  
+                System.exit(0);
             }
         });
 
@@ -215,6 +215,22 @@ public class Gui {
                funcionesGUI.mostrarMenuJugar(framePrincipal);
             }
         });
+        
+        panelJugar = funcionesGUI.hacerPanel(panelJugar, labelJugar, "Jugar contra:");
+        cajaJugadores = funcionesGUI.inicializarListaJugadores(player1);
+        
+        funcionesGUI.posicion(posicion, 0, 0);
+        panelJugar.add(labelJugar,posicion);
+        
+        funcionesGUI.posicion(posicion,0,1);
+        panelJugar.add(cajaJugadores,posicion);
+        
+        funcionesGUI.posicion(posicion, 0, 2);
+        panelJugar.add(btnRegresar,posicion);
+        
+        btnJugarListo = funcionesGUI.hacerbtn(btnJugarListo, "Jugar");
+        funcionesGUI.posicion(posicion,1,2);
+        panelJugar.add(btnJugarListo,posicion);
         
         btnCuenta = funcionesGUI.hacerbtn(btnCuenta, "Mi cuenta");
         funcionesGUI.posicion(posicion, 0, 2);
@@ -259,8 +275,9 @@ public class Gui {
        framePrincipal.setVisible(true);
     
     }
-   
-    
+    static JButton btnJugarListo = new JButton();
+    static JLabel labelJugar = new JLabel();
+    static JComboBox cajaJugadores = new JComboBox();
     static JButton btnRegresar = new JButton();
     static JPanel panelRanking = new JPanel();
     static JPanel panelLogs = new JPanel();

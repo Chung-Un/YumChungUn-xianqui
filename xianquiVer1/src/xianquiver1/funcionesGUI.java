@@ -55,7 +55,7 @@ public class funcionesGUI extends Gui {
     
     
     public static JPanel hacerPanel(JPanel panel,JLabel label, String titulo){    
-    panel.setBackground(new Color (251, 165, 24));
+    panel.setBackground(new Color (249, 203, 67));
     label = hacerLabelTitulo(label, titulo );
     panel.setLayout(new GridBagLayout());
     
@@ -75,6 +75,28 @@ public class funcionesGUI extends Gui {
 
        menuJugar.add(nuevaPartida);
        menuJugar.show(frame, 200, 200);
+       
+       nuevaPartida.addActionListener(e ->{
+                panelPrincipal.setVisible(false);
+                panelJugar.setVisible(true);
+           });
+       
+       
+   }
+   
+   public static JComboBox inicializarListaJugadores(Users player){
+       JComboBox caja = new JComboBox();
+       
+       for (int index= 0; index< manejoPlayers.players.length;index ++){
+           if(manejoPlayers.players[index] != null){
+           if(manejoPlayers.players[index].usuario.equals( player.usuario)){
+           
+           }
+           else{
+             caja.addItem(manejoPlayers.players[index]);
+           }
+       }}
+   return caja;
    }
 
    public static void mostrarMenuCuenta(JFrame frame, Users player) {
