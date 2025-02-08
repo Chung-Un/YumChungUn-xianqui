@@ -67,6 +67,8 @@ public static void mostrarTablero(){
     panelGestionJuego.add(labelUser1);
     
     fieldUser1.setEditable(false);
+    fieldUser1.setBackground(new Color(229, 32, 32));
+    fieldUser2.setBackground(new Color(229,32,32));
     fieldUser2.setEditable(false);
     
     panelGestionJuego.add(fieldUser1);
@@ -100,6 +102,7 @@ for (int filas=1;filas<=11;filas++){
         }
         else{
         JButton btn = new JButton();
+        btn.setPreferredSize(new Dimension(60,60));
          if((filas+columnas)%2 ==0){
             if(esPalacio(filas,columnas)){
                 btn.setBackground(new Color(212,169,51));
