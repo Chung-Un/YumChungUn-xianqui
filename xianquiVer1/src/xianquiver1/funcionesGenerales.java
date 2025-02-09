@@ -17,55 +17,69 @@ public class funcionesGenerales {
         switch (row) {
             case 1:
                 if(col ==1 || col == 9){
-                    //carro de guerra negro
+                    Pieza carroGuerraNegro = new carroGuerra("negro");
+                    ((carroGuerra)carroGuerraNegro).ponerImagen(btn);
                 }
                 else if(col ==2 || col == 8){
-                    //caballo negro
+                    Pieza caballoNegro = new caballo("negro");
+                    ((caballo)caballoNegro).ponerImagen(btn);
                 }
                 else if(col == 3 ||col == 7){
-                    //elefante negro
+                    Pieza elefanteNegro = new elefante("negro");
+                    ((elefante)elefanteNegro).ponerImagen(btn);
                 }
                 else if(col ==5){
-                    //general negro
+                    Pieza generalNegro = new general("negro");
+                    ((general)generalNegro).ponerImagen(btn);
                 }
                 else if(col == 4 || col == 6){
-                    //oficial negro
+                    Pieza oficialNegro = new oficial("negro");
+                    ((oficial)oficialNegro).ponerImagen(btn);
                 }   break;
             case 3:
                 if(col ==2 || col ==8){
-                    //canon negro
+                    Pieza canonNegro = new canon ("negro");
+                    ((canon)canonNegro).ponerImagen(btn);
                 }   break;
             case 4:
                 if(col == 1 || col == 3 || col == 5 || col == 7 || col == 9){
-                    //soldado negro
+                    Pieza soldadoNegro = new soldado("negro");
+                    ((soldado)soldadoNegro).ponerImagen(btn);
                 }   break;
                 
             case 8:
                 if(col ==1 || col ==3 || col == 5 || col == 7 || col == 9){
-                //soldado rojo
+                    Pieza soldadoRojo = new soldado("rojo");
+                    ((soldado)soldadoRojo).ponerImagen(btn);
                 } break;
                 
             case 9:
                 if(col == 2 || col == 8){
-                //canon rojo
+                    Pieza canonRojo = new canon("rojo");
+                    ((canon)canonRojo).ponerImagen(btn);
                 } break;
                 
             case 11:
                 if(col == 1 || col == 9){
-                //carroGuerra rojo
+                    Pieza carroGuerraRojo =new carroGuerra("rojo");
+                    ((carroGuerra)carroGuerraRojo).ponerImagen(btn);
                 }
                 else if(col == 2 || col == 8){
-                //caballo rojo
+                    Pieza caballoRojo = new caballo("rojo");
+                    ((caballo)caballoRojo).ponerImagen(btn);
                 }
                 
                 else if(col == 3 || col == 7){
-                //elefante rojo
+                    Pieza elefanteRojo = new elefante("rojo");
+                    ((elefante)elefanteRojo).ponerImagen(btn);
                 }
                 else if(col == 4|| col == 6){
-                //oficial rojo
+                    Pieza oficialRojo = new oficial("rojo");
+                    ((oficial)oficialRojo).ponerImagen(btn);
                 }
                 else if(col == 5){
-                //general rojo
+                    Pieza generalRojo = new general("rojo");
+                    ((general)generalRojo).ponerImagen(btn);
                 }break;
                 
             default:

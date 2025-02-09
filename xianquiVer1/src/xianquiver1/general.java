@@ -35,35 +35,44 @@ public class general extends Pieza {
     }
 
     @Override
-    void ponerImagen(String color, JButton btn) {
-        if(color.equals("rojo")){
-            
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/generalRojo.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
+    void ponerImagen(JButton btn) {
+         if(color.equals("rojo")){
+     try {
+        String ruta = "/resources/generalRojo.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
-            } catch (IOException ex) {
-                System.out.println("General rojo no se pudo cargar");
-            }
-            
-        
-        }else{
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/generalNegro.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
-
-            } catch (IOException ex) {
-                System.out.println("General negro no se pudo cargar");
-            }
-            
-        
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
+            return;
         }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del general rojo.");
+    }}
+
+    else{
+        try {
+        String ruta = "/resources/generalNegro.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
+
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontro la imagen en (negro)" + ruta);
+            return;
+        }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del general negro.");
+    }}
+
     }
-    
     }
     
 

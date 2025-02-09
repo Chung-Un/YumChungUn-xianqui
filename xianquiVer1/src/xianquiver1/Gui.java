@@ -42,6 +42,7 @@ public class Gui {
                 if(loginPosible){
                 panelInicio.setVisible(false);
                 frameInicio.add(panelLogin);
+                panelLogin.setVisible(true);
                 frameInicio.revalidate();
                 frameInicio.repaint();
             }else{
@@ -59,69 +60,75 @@ public class Gui {
             public void actionPerformed(ActionEvent e) {
                 panelInicio.setVisible(false);
                 frameInicio.add(panelCrear);
+                panelCrear.setVisible(true);
                 frameInicio.revalidate();
                 frameInicio.repaint();
             }
         });
 
         //LOGIN
-        
-        panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
-        funcionesGUI.posicion(posicion, 0, 0);
-        posicion.gridwidth = 2;
-        posicion.anchor = GridBagConstraints.CENTER;
-        panelLogin.add(labelLogin, posicion);
-        
-        labelUsuario = funcionesGUI.hacerLabel(labelUsuario, "Usuario: ");
-        funcionesGUI.posicion(posicion, 0, 1);
-        posicion.gridwidth = 1;
-        panelLogin.add(labelUsuario, posicion);
-        
-        fieldUser = new JTextField(10);
-        funcionesGUI.posicion(posicion, 1, 1);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelLogin.add(fieldUser, posicion);
-        
-        labelPassword = funcionesGUI.hacerLabel(labelPassword, "Password: ");
-        funcionesGUI.posicion(posicion, 0, 2);
-        posicion.gridwidth = 1;
-        panelLogin.add(labelPassword,posicion);
-        
-        fieldPassword = new JPasswordField(10);
-        funcionesGUI.posicion(posicion, 1, 2);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelLogin.add(fieldPassword, posicion);
-       
-        btnOkLogin = funcionesGUI.hacerbtn(btnOkLogin, "Ok");
-        funcionesGUI.posicion(posicion, 0, 3);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx =1.0;
-        panelLogin.add(btnOkLogin, posicion);
-        
-        
-        btnOkLogin.addActionListener(new ActionListener() {
+          panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
+          funcionesGUI.posicion(posicion, 0, 0);
+          posicion.gridwidth = 3;
+          posicion.anchor = GridBagConstraints.CENTER;
+          panelLogin.add(labelLogin, posicion);
+          
+          labelUsuarioLogin = funcionesGUI.hacerLabel(labelUsuarioLogin, "Usuario: ");
+          funcionesGUI.posicion(posicion, 0, 1);
+          posicion.gridwidth = 1;
+          panelLogin.add(labelUsuarioLogin, posicion);
+          
+          fieldUsuarioLogin = new JTextField(10);
+          funcionesGUI.posicion(posicion, 1, 1);
+          posicion.fill = GridBagConstraints.HORIZONTAL;
+          posicion.weightx = 1.0;
+          panelLogin.add(fieldUsuarioLogin,posicion);
+          
+          labelPasswordLogin = funcionesGUI.hacerLabel(labelPasswordLogin,"Password: ");
+          funcionesGUI.posicion(posicion, 0, 2);
+          posicion.gridwidth = 1;
+          panelLogin.add(labelPasswordLogin,posicion);
+          
+          fieldPasswordLogin = new JPasswordField(10);
+          funcionesGUI.posicion(posicion, 1, 2);
+          posicion.fill = GridBagConstraints.HORIZONTAL;
+          posicion.weightx = 1.0;
+          panelLogin.add(fieldPasswordLogin,posicion);
+
+          btnOkLogin = funcionesGUI.hacerbtn(btnOkLogin,"Ok");
+          
+          btnOkLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String usuario = fieldUser.getText();
-                String password = new String(fieldPassword.getPassword());
+                String usuario = fieldUsuarioLogin.getText();
+                String password = new String(fieldPasswordLogin.getPassword());
                 
                 Users loginExitoso= manejoPlayers.verificarLogin(usuario, password);
                 
-                if(loginExitoso !=null){
+                if (loginExitoso== null){
+                JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(loginExitoso !=null){
                 player1 = loginExitoso;
                 frameInicio.setVisible(false);
+                menuPrincipal();
                 }
             }
         });
+          
+          funcionesGUI.posicion(posicion, 0,3);
+          posicion.fill = GridBagConstraints.HORIZONTAL;
+          posicion.weightx = 1.0;
+          panelLogin.add(btnOkLogin,posicion);
+
         
         btnRegresar = funcionesGUI.hacerbtn(btnRegresar, "Regresar");
+        funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
         funcionesGUI.posicion(posicion, 1,3);
         posicion.fill = GridBagConstraints.HORIZONTAL;
         posicion.weightx = 1.0;
         panelLogin.add(btnRegresar,posicion);
-        funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
+
         
         //CREAR PLAYER
         panelCrear = funcionesGUI.hacerPanel(panelCrear, labelCrear, "Crear Player");
@@ -130,10 +137,12 @@ public class Gui {
         posicion.anchor = GridBagConstraints.CENTER;
         panelCrear.add(labelCrear, posicion);
         
+        labelUsuario = funcionesGUI.hacerLabel(labelUsuario, "Usuario:");
         funcionesGUI.posicion(posicion, 0, 1);
         posicion.gridwidth = 1;
         panelCrear.add(labelUsuario, posicion);
         
+        labelPassword = funcionesGUI.hacerLabel(labelPassword, "Password: ");
         funcionesGUI.posicion(posicion, 0, 2);
         posicion.gridwidth = 1;
         panelCrear.add(labelPassword, posicion);
@@ -142,11 +151,13 @@ public class Gui {
         funcionesGUI.posicion(posicion, 0, 3);
         panelCrear.add(btnOkCrear, posicion);
         
+        fieldUser = new JTextField(10);
         funcionesGUI.posicion(posicion, 1, 1);
         posicion.fill = GridBagConstraints.HORIZONTAL;
         posicion.weightx = 1.0;
         panelCrear.add(fieldUser, posicion);
         
+        fieldPassword= new JPasswordField(10);
         funcionesGUI.posicion(posicion, 1, 2);
         posicion.fill = GridBagConstraints.HORIZONTAL;
         posicion.weightx = 1.0;
@@ -166,14 +177,19 @@ public class Gui {
                 frameInicio.setVisible(false);
                 menuPrincipal();
                 }
+                else if (creacionExitosa ==null ){
+                    JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo","Error", JOptionPane.ERROR_MESSAGE);
+
+                }
             }
         });
         
+        btnRegresarCrear = funcionesGUI.hacerbtn(btnRegresarCrear, "Regresar");
         funcionesGUI.posicion(posicion, 1,3);
         posicion.fill = GridBagConstraints.HORIZONTAL;
         posicion.weightx = 1.0;
-        panelCrear.add(btnRegresar,posicion);
-        funcionesGUI.regresar(btnRegresar, panelCrear, panelInicio);
+        panelCrear.add(btnRegresarCrear,posicion);
+        funcionesGUI.regresar(btnRegresarCrear, panelCrear, panelInicio);
         
         //SALIR
         btnSalir = funcionesGUI.hacerbtn(btnSalir,"Salir");
@@ -217,20 +233,40 @@ public class Gui {
         });
         
         panelJugar = funcionesGUI.hacerPanel(panelJugar, labelJugar, "Jugar contra:");
-        cajaJugadores = funcionesGUI.inicializarListaJugadores(player1);
-        
         funcionesGUI.posicion(posicion, 0, 0);
         panelJugar.add(labelJugar,posicion);
         
+        fieldJugadorContra = new JTextField(10);
         funcionesGUI.posicion(posicion,0,1);
-        panelJugar.add(cajaJugadores,posicion);
+        posicion.fill = GridBagConstraints.HORIZONTAL;
+        panelJugar.add(fieldJugadorContra,posicion);
         
+        btnRegresarJugar = funcionesGUI.hacerbtn(btnRegresarJugar, "Regresar");
         funcionesGUI.posicion(posicion, 0, 2);
-        panelJugar.add(btnRegresar,posicion);
+        panelJugar.add(btnRegresarJugar,posicion);
+        funcionesGUI.regresar(btnRegresarJugar,panelJugar,panelPrincipal);
         
         btnJugarListo = funcionesGUI.hacerbtn(btnJugarListo, "Jugar");
         funcionesGUI.posicion(posicion,1,2);
         panelJugar.add(btnJugarListo,posicion);
+        
+        btnJugarListo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String usuarioJugadorContra = fieldJugadorContra.getText();
+                
+                Users playerContra= manejoPlayers.buscarPlayerPorUsuario(usuarioJugadorContra);
+                if(playerContra == null){
+                JOptionPane.showMessageDialog(null,"Jugador no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                Users player2 = playerContra;
+                JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
+                Tablero.mostrarTablero();
+                }
+                
+            }
+        });
         
         btnCuenta = funcionesGUI.hacerbtn(btnCuenta, "Mi cuenta");
         funcionesGUI.posicion(posicion, 0, 2);
@@ -266,6 +302,7 @@ public class Gui {
               framePrincipal.setVisible(false);
               pantallaInicio();
               panelCrear.setVisible(false);
+              panelLogin.setVisible(false);
               panelInicio.setVisible(true);
             }
         });
@@ -275,6 +312,13 @@ public class Gui {
        framePrincipal.setVisible(true);
     
     }
+    static JTextField fieldJugadorContra = new JTextField();
+    static JButton btnRegresarJugar= new JButton();
+    static JButton btnRegresarCrear= new JButton();
+    static JPasswordField fieldPasswordLogin = new JPasswordField();
+    static JTextField fieldUsuarioLogin= new JTextField();
+    static JLabel labelPasswordLogin = new JLabel();
+    static JLabel labelUsuarioLogin = new JLabel();
     static JButton btnJugarListo = new JButton();
     static JLabel labelJugar = new JLabel();
     static JComboBox cajaJugadores = new JComboBox();

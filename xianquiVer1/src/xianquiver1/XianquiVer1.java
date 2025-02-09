@@ -18,7 +18,7 @@ public class XianquiVer1 {
         
         gui.pantallaInicio();
         
-        Tablero.mostrarTablero();
+//        Tablero.mostrarTablero();
 //        gui.menuPrincipal();
        
         // TODO code application logic here

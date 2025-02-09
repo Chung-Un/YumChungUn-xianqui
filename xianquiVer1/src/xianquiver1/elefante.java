@@ -35,33 +35,43 @@ public class elefante extends Pieza {
     }
 
     @Override
-    void ponerImagen(String color,JButton btn) {
-        if(color.equals("rojo")){
-            
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/elefanteRojo.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
+    void ponerImagen(JButton btn) {
+         if(color.equals("rojo")){
+     try {
+        String ruta = "/resources/elefanteRojo.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
-            } catch (IOException ex) {
-                System.out.println("Elefante rojo no se pudo cargar");
-            }
-            
-        
-        }else{
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/elefanteNegro.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
-
-            } catch (IOException ex) {
-                System.out.println("Elefante negro no se pudo cargar");
-            }
-            
-        
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
+            return;
         }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del elefante rojo.");
+    }}
+
+    else{
+        try {
+        String ruta = "/resources/elefanteNegro.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
+
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontro la imagen en (negro)" + ruta);
+            return;
+        }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del elefante negro.");
+    }}
+
     }
     
 }

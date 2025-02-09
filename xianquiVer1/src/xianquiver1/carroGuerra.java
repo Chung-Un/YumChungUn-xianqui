@@ -4,26 +4,24 @@
  */
 package xianquiver1;
 
+import com.sun.tools.javac.Main;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
  *
  * @author chung
  */
-
-import com.sun.tools.javac.Main;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import javax.imageio.*;
-import javax.swing.*;
-
 public class carroGuerra extends Pieza {
-    
     public carroGuerra(String color){
     super(color);
     }
-
+    
     @Override
     String getTipoPieza() {
         return "carroGuerra";
@@ -35,33 +33,43 @@ public class carroGuerra extends Pieza {
     }
 
     @Override
-    void ponerImagen(String color, JButton btn) {
-         if(color.equals("rojo")){
-            
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/carroGuerraRojo.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
+    void ponerImagen(JButton btn){
+        if(color.equals("rojo")){
+     try {
+        String ruta = "/resources/carroGuerraRojo.png"; 
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
-            } catch (IOException ex) {
-                System.out.println("Carro de guerra rojo no se pudo cargar");
-            }
-            
-        
-        }else{
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/carroGuerraNegro.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
-
-            } catch (IOException ex) {
-                System.out.println("Carro de guerra negro no se pudo cargar");
-            }
-            
-        
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
+            return;
         }
-    }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del carro guerra rojo.");
+    }}
+
+    else{
+        try {
+        String ruta = "/resources/carroGuerraNegro.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
+
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontró la imagen en (negro)" + ruta);
+            return;
+        }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del carro guerra negro.");
+    }}
+
+    }}
+
     
-}

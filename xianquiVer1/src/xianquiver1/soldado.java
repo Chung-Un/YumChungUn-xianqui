@@ -24,7 +24,7 @@ public class soldado extends Pieza{
 
     @Override
     String getTipoPieza() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "soldado";
     }
 
     @Override
@@ -33,32 +33,42 @@ public class soldado extends Pieza{
     }
 
     @Override
-    void ponerImagen(String color, JButton btn) {
-         if(color.equals("rojo")){
-            
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/soldadoRojo.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
+    void ponerImagen( JButton btn) {
+          if(color.equals("rojo")){
+     try {
+        String ruta = "/resources/soldadoRojo.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
-            } catch (IOException ex) {
-                System.out.println("Soldado rojo no se pudo cargar");
-            }
-            
-        
-        }else{
-            try {
-                InputStream imgIcon = Main.class.getResourceAsStream("/resources/soldadoNegro.png");
-                BufferedImage imgOg = ImageIO.read(imgIcon);
-                Image imgResize = imgOg.getScaledInstance(btn.getWidth(),btn.getHeight(),Image.SCALE_SMOOTH);
-                btn.setIcon(new ImageIcon(imgResize));
-
-            } catch (IOException ex) {
-                System.out.println("Soldado negro no se pudo cargar");
-            }
-            
-        
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
+            return;
         }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del soldado rojo.");
+    }}
+
+    else{
+        try {
+        String ruta = "/resources/soldadoNegro.png";  
+        InputStream imgIcon = getClass().getResourceAsStream(ruta);
+
+        if (imgIcon == null) {
+            System.out.println("Error: No se encontro la imagen en (negro)" + ruta);
+            return;
+        }
+
+        BufferedImage imgOg = ImageIO.read(imgIcon);
+        Image imgResize = imgOg.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(imgResize));
+
+    } catch (IOException ex) {
+        System.out.println("Error al cargar la imagen del soldado negro.");
+    }}
+
     }
 }

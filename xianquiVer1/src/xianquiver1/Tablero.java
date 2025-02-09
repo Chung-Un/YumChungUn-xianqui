@@ -105,7 +105,7 @@ for (int filas=1;filas<=11;filas++){
         btn.setPreferredSize(new Dimension(60,60));
          if((filas+columnas)%2 ==0){
             if(esPalacio(filas,columnas)){
-                btn.setBackground(new Color(212,169,51));
+                btn.setBackground(new Color(180,104,255)); 
             }
             else{
                 btn.setBackground(new Color(251, 165, 24));
@@ -113,11 +113,12 @@ for (int filas=1;filas<=11;filas++){
         }
          else{
              if(esPalacio(filas,columnas))
-                 btn.setBackground(new Color(161,34,36));
+                 btn.setBackground(new Color(210,164,255));
              else{
                  btn.setBackground(new Color(249, 203, 67));
              }
         }
+        funcionesGenerales.colocarPieza(btn, filas, columnas);
         btn.setFocusable(false);
         panelTablero.add(btn);
         } 

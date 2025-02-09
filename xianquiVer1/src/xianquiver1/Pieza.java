@@ -24,6 +24,6 @@ public abstract class Pieza extends JButton{
     
     abstract String getTipoPieza();
     abstract boolean movimientoValido(int row, int column);
-    abstract void ponerImagen(String color, JButton btn);
+    abstract void ponerImagen( JButton btn);
     
 }

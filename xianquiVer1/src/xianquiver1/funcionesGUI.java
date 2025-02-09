@@ -72,32 +72,25 @@ public class funcionesGUI extends Gui {
    public static void mostrarMenuJugar(JFrame frame) {
        JPopupMenu menuJugar = new JPopupMenu();
        JMenuItem nuevaPartida = new JMenuItem("Nueva Partida");
-
+       
        menuJugar.add(nuevaPartida);
        menuJugar.show(frame, 200, 200);
        
-       nuevaPartida.addActionListener(e ->{
+       nuevaPartida.addActionListener(e ->{ 
+           if(manejoPlayers.players.length <2){
+           JOptionPane.showMessageDialog(null, "No hay suficientes jugadores para iniciar una partida", "Error", JOptionPane.ERROR_MESSAGE);
+           }
+           else{
                 panelPrincipal.setVisible(false);
+                framePrincipal.add(panelJugar);
                 panelJugar.setVisible(true);
+           }
            });
        
        
    }
    
-   public static JComboBox inicializarListaJugadores(Users player){
-       JComboBox caja = new JComboBox();
-       
-       for (int index= 0; index< manejoPlayers.players.length;index ++){
-           if(manejoPlayers.players[index] != null){
-           if(manejoPlayers.players[index].usuario.equals( player.usuario)){
-           
-           }
-           else{
-             caja.addItem(manejoPlayers.players[index]);
-           }
-       }}
-   return caja;
-   }
+   
 
    public static void mostrarMenuCuenta(JFrame frame, Users player) {
        JPopupMenu menuCuenta = new JPopupMenu();

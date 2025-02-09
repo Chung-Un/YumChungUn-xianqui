@@ -66,7 +66,6 @@ int numJugadores=0;
        Users player = buscarPlayerPorUsuario(usuario);
        
        if (player == null){
-            JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
        return null;
        }
        else{
@@ -118,7 +117,6 @@ int numJugadores=0;
             
         }
         else{
-            JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo","Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
