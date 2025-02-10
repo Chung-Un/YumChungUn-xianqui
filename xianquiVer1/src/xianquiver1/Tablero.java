@@ -60,7 +60,7 @@ public static void mostrarTablero(){
     labelTurnos.setForeground(new Color(249, 203, 67));
     panelGestionJuego.add(labelTurnos);
     
-    labelUser1 = funcionesGUI.hacerLabel(labelUser1, "User 1");
+    labelUser1 = funcionesGUI.hacerLabel(labelUser1,XianquiVer1.player1.usuario);
     labelUser1.setHorizontalAlignment(JLabel.CENTER);
     labelUser1.setForeground(new Color(249, 203, 67));
     
@@ -73,7 +73,7 @@ public static void mostrarTablero(){
     
     panelGestionJuego.add(fieldUser1);
     
-    labelUser2 = funcionesGUI.hacerLabel(labelUser2, "User 2");
+    labelUser2 = funcionesGUI.hacerLabel(labelUser2, XianquiVer1.player2.usuario);
     labelUser2.setHorizontalAlignment(JLabel.CENTER);
     labelUser2.setForeground(new Color(249, 203, 67));
     

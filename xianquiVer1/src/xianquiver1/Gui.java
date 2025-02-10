@@ -11,7 +11,6 @@ import javax.swing.*;
 public class Gui {
     
     manejoPlayers manejoPlayers = new manejoPlayers();
-    public Users player1;
 
     public void pantallaInicio(){
         frameInicio.setTitle("Xianqui");
@@ -109,7 +108,7 @@ public class Gui {
                 JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(loginExitoso !=null){
-                player1 = loginExitoso;
+                XianquiVer1.player1 = loginExitoso;
                 frameInicio.setVisible(false);
                 menuPrincipal();
                 }
@@ -168,19 +167,19 @@ public class Gui {
             public void actionPerformed(ActionEvent e) {
                 String usuario = fieldUser.getText();
                 String password = new String(fieldPassword.getPassword());
-                
-                Users creacionExitosa= manejoPlayers.verificarCrearPlayer(usuario, password);
-                
-                if(creacionExitosa!=null){
-                player1 = creacionExitosa;
-                JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
-                frameInicio.setVisible(false);
-                menuPrincipal();
-                }
-                else if (creacionExitosa ==null ){
-                    JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo","Error", JOptionPane.ERROR_MESSAGE);
 
-                }
+                XianquiVer1.player1 = manejoPlayers.verificarCrearPlayer(usuario, password);
+
+                if (XianquiVer1.player1 != null) {
+                    if(XianquiVer1.player1.usuario.equals("FALSOFALSO")) {
+                    JOptionPane.showMessageDialog(null, "Password no cumple con la restriccion de caracteres (5), intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                    JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
+                    frameInicio.setVisible(false);
+                    menuPrincipal();
+                } }
+                else {JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);}
             }
         });
         
@@ -259,9 +258,13 @@ public class Gui {
                 if(playerContra == null){
                 JOptionPane.showMessageDialog(null,"Jugador no existe", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                else if(playerContra.usuario.equals(XianquiVer1.player1.usuario)){
+                JOptionPane.showMessageDialog(null, "No puede jugar contra usted mismo","Error", JOptionPane.ERROR_MESSAGE);
+                }
                 else{
-                Users player2 = playerContra;
-                JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
+                XianquiVer1.player2 = playerContra;
+                JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + XianquiVer1.player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
+                Partidas partida = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
                 Tablero.mostrarTablero();
                 }
                 
@@ -275,7 +278,7 @@ public class Gui {
         btnCuenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                funcionesGUI.mostrarMenuCuenta(framePrincipal, player1);
+                funcionesGUI.mostrarMenuCuenta(framePrincipal);
                 
             }
         });
@@ -298,7 +301,7 @@ public class Gui {
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              player1 = null;
+              XianquiVer1.player1 = null;
               framePrincipal.setVisible(false);
               pantallaInicio();
               panelCrear.setVisible(false);

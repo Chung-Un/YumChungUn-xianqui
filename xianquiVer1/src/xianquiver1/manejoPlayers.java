@@ -36,7 +36,7 @@ int numJugadores=0;
     }
 }
     
-    public static void resize(){
+    public void resize(){
         Users[] playersResized = new Users[players.length*2];
         System.arraycopy(players, 0, playersResized, 0, players.length);
         players = playersResized;
@@ -87,7 +87,7 @@ int numJugadores=0;
         return true;
         }
         else{
-        JOptionPane.showMessageDialog(null, "Password no cumple con la restriccion de caracteres (5), intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        
         return false;
         }      
     }
@@ -106,19 +106,21 @@ int numJugadores=0;
         
         if (player == null){
             boolean passwordValida = verificarLongitudPassword(password);
-                if(passwordValida){
+            if(passwordValida == true){
                 player = new Users(usuario,password);
                 crear(player);
                 return player;
-                }
-                else{
-                return null;
-                }
+            }
+            else if (passwordValida== false){
+                player = new Users("FALSOFALSO", "FALSOFALSO");
+                return player;
+            }
             
         }
         else{
-            return null;
+            return player;
         }
+    return player;
     }
     
     public static void mostrarInformacion(Users player){
@@ -159,6 +161,23 @@ int numJugadores=0;
     }
     
     public static void ranking(){}
+    
+    public static void agregarLog(Logs log, Users player){
+        for (int index=0; index<player.logsUsuario.length;index++){
+            if (player.logsUsuario[index] ==null){
+            player.logsUsuario[index] = log;
+            break;
+            }
+            
+        }
+    }
+    
+    private void resizeLogsUsuario(Users user) {
+        Logs[] logs = new Logs[user.logsUsuario.length * 2];
+        System.arraycopy(user.logsUsuario, 0, logs, 0, user.logsUsuario.length);
+        user.logsUsuario = logs;
+}
+    
     
 }
 

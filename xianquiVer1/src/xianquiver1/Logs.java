@@ -9,5 +9,8 @@ package xianquiver1;
  * @author chung
  */
 public class Logs {
-    
+    String log;
+    public Logs(String log){
+    this.log = log;
+    }
 }

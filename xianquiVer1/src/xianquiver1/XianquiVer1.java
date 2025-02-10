@@ -13,12 +13,14 @@ public class XianquiVer1 {
     /**
      * @param args the command line arguments
      */
+    public static Users player1;
+    public static Users player2;
     public static void main(String[] args) {
         Gui gui = new Gui();
         
         gui.pantallaInicio();
-        
-//        Tablero.mostrarTablero();
+//        if (player1!=null && player2!=null){
+//        Tablero.mostrarTablero();}
 //        gui.menuPrincipal();
        
         // TODO code application logic here

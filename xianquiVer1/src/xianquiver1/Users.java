@@ -11,8 +11,8 @@ import java.time.LocalDate;
  * @author chung
  */
 public class Users {
-   
-    String[] partidas = new String[100];
+    Logs[] logsUsuario = new Logs[100];
+    Partidas[] partidasUsuario = new Partidas[100];
     String usuario, password;
     int puntos,partidasGanadas,partidasEmpatadas,partidasPerdidas;
     boolean activo;
@@ -22,6 +22,8 @@ public class Users {
         this.usuario = usuario;
         this.password = password;
         this.puntos = 0;
+        this.partidasUsuario = partidasUsuario;
+        this.logsUsuario = logsUsuario;
         this.partidasEmpatadas=0;
         this.partidasGanadas=0;
         this.partidasPerdidas=0;
@@ -29,13 +31,7 @@ public class Users {
         this.fechaIngreso = LocalDate.now();
     }
 
-     public String[] getPartidas() {
-        return partidas;
-    }
-
-    public void setPartidas(String[] partidas) {
-        this.partidas = partidas;
-    }
+   
     
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
@@ -45,8 +41,8 @@ public class Users {
         this.fechaIngreso = fechaIngreso;
     }
 
+   
     
-
     public String getUsuario() {
         return usuario;
     }

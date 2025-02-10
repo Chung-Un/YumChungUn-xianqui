@@ -92,7 +92,7 @@ public class funcionesGUI extends Gui {
    
    
 
-   public static void mostrarMenuCuenta(JFrame frame, Users player) {
+   public static void mostrarMenuCuenta(JFrame frame) {
        JPopupMenu menuCuenta = new JPopupMenu();
        JMenuItem verInfo = new JMenuItem("Ver mi información");
        JMenuItem cambiarPassword = new JMenuItem("Cambiar Password");
@@ -107,12 +107,12 @@ public class funcionesGUI extends Gui {
                String passwordActual = JOptionPane.showInputDialog("Ingrese su password actual: ");
                String passwordNueva = JOptionPane.showInputDialog("Ingrese su password nueva: ");
                
-               manejoPlayers.cambiarPassword(player,passwordActual,passwordNueva);
+               manejoPlayers.cambiarPassword(XianquiVer1.player1,passwordActual,passwordNueva);
            });
        
 
        cerrarCuenta.addActionListener(e ->{
-               manejoPlayers.eliminarCuenta(player);
+               manejoPlayers.eliminarCuenta(XianquiVer1.player1);
                panelPrincipal.setVisible(false);
                frame.add(panelInicio);
                frame.add(panelCrear);
@@ -123,7 +123,7 @@ public class funcionesGUI extends Gui {
            });
        
        verInfo.addActionListener(e ->{
-               manejoPlayers.mostrarInformacion(player);
+               manejoPlayers.mostrarInformacion(XianquiVer1.player1);
            });
    }
 
@@ -153,6 +153,8 @@ public class funcionesGUI extends Gui {
             public void actionPerformed(ActionEvent e) {
                 panelActual.setVisible(false);
                 panelVolver.setVisible(true);
+                panelVolver.repaint();
+                panelVolver.revalidate();
             }
         });
        
