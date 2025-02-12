@@ -30,8 +30,11 @@ public class general extends Pieza {
     }
 
     @Override
-    boolean movimientoValido(int row, int column) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    boolean movimientoValido(int filaInicial, int colInicial, int fila, int col ,Pieza pieza) {
+        int difFila = Math.abs(fila-filaInicial);
+        int difCol = Math.abs(col-colInicial);
+        
+        return true;
     }
 
     @Override

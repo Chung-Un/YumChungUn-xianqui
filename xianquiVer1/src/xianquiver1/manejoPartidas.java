@@ -32,6 +32,11 @@ public class manejoPartidas implements Almacenamiento<Partidas>{
         System.arraycopy(partidas, 0, partidasResized, 0, partidas.length);
         partidas= partidasResized;
     }
+
+    @Override
+    public void resize(Partidas[] item) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

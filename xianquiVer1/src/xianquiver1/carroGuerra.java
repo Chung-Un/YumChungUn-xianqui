@@ -12,6 +12,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,8 +29,20 @@ public class carroGuerra extends Pieza {
     }
 
     @Override
-    boolean movimientoValido(int row, int column) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    boolean movimientoValido(int filaInicial, int colInicial, int fila , int col , Pieza pieza) {
+        int difFila = Math.abs(fila-filaInicial);
+        int difCol = Math.abs(col - colInicial);
+        
+        if(difFila==1 && difCol ==0){
+            return true;
+        }
+        else if(difFila==0 && difCol==1){
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Movimiento no valido", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     @Override

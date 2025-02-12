@@ -21,6 +21,8 @@ public static void mostrarTablero(){
     panelJuego.setLayout(new BorderLayout());
     frameTablero.add(panelJuego);
     
+    panelContenedor.removeAll();
+    
     panelContenedor.setLayout(new BorderLayout());
     panelContenedor.setBackground(Color.WHITE);
     
@@ -28,17 +30,17 @@ public static void mostrarTablero(){
     panelLetras.setPreferredSize(new Dimension(700,30));
     panelLetras.add(new JLabel(" "));
     
-    agregarLetras();
+    manejoTablero.agregarLetras();
     
     panelNumeros.setLayout(new GridLayout(10,1));
     panelNumeros.setPreferredSize(new Dimension(30,800));
     
-    agregarNumeros();
+    manejoTablero.agregarNumeros();
     
     panelTablero.setBackground(new Color(249, 203, 67));
     panelTablero.setSize(700,800);
     panelTablero.setLayout(new GridLayout(11,9));
-    hacerBotones();
+    manejoTablero.hacerBotones();
     
     panelContenedor.add(panelTablero,BorderLayout.CENTER);
     panelContenedor.add(panelNumeros,BorderLayout.WEST);
@@ -89,77 +91,10 @@ public static void mostrarTablero(){
     frameTablero.setVisible(true);
 }    
     
-
-public static void hacerBotones(){
-
-for (int filas=1;filas<=11;filas++){ 
-    for(int columnas=1;columnas<=9; columnas++){
-        if (filas==6){
-        JLabel labelRio = new JLabel("");
-        labelRio.setOpaque(true);
-        labelRio.setBackground(new Color(71,197,209));
-        panelTablero.add(labelRio);
-        }
-        else{
-        JButton btn = new JButton();
-        btn.setPreferredSize(new Dimension(60,60));
-         if((filas+columnas)%2 ==0){
-            if(esPalacio(filas,columnas)){
-                btn.setBackground(new Color(180,104,255)); 
-            }
-            else{
-                btn.setBackground(new Color(251, 165, 24));
-            }
-        }
-         else{
-             if(esPalacio(filas,columnas))
-                 btn.setBackground(new Color(210,164,255));
-             else{
-                 btn.setBackground(new Color(249, 203, 67));
-             }
-        }
-        funcionesGenerales.colocarPieza(btn, filas, columnas);
-        btn.setFocusable(false);
-        panelTablero.add(btn);
-        } 
-        
-         }
-    }
-    }   
-
-
-public static boolean esPalacio (int filas, int columnas){
-
-if(filas==11 || filas ==10 || filas == 9 || filas ==1 || filas == 2 || filas ==3){
-    if (columnas==4 || columnas ==6 ||columnas ==5 ){
-    return true;
-    }
-    else
-    return false;
-    
-    }
-return false;   
-    }
-
-public static void agregarLetras(){
-String[] letras = {"a","b","c","d","e","f","g","h","i"};
-
-for (int index=0;index<letras.length;index++){
-JLabel labelLetras = new JLabel(letras[index]);
-labelLetras.setFont(new Font("Arial",Font.PLAIN,16));
-labelLetras.setForeground(new Color(251, 165, 24));
-panelLetras.add(labelLetras);
-}}
-
-public static void agregarNumeros(){
-for (int index=1; index<=10; index++){
-JLabel labelNumeros = new JLabel(String.valueOf(index));
-labelNumeros.setFont(new Font("Arial", Font.PLAIN,16));
-labelNumeros.setForeground(new Color(251,165,24));
-panelNumeros.add(labelNumeros);
-}
-
-}
+static Pieza piezaSeleccionada;
+static Pieza[][] piezasTablero = new Pieza[11][9];
+static JButton[][] botonesTablero = new JButton[11][9];
+static int filaOrigen=-1, columnaOrigen=-1;
 static JLabel labelTurnos = new JLabel();
 static JButton btnRetirar = new JButton();
 static JTextField fieldUser1 = new JTextField();

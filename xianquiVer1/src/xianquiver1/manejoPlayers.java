@@ -21,6 +21,7 @@ int numJugadores=0;
             resize();}
         else{
             players[numJugadores++] = user;
+            System.out.println("usuario creado:" + user.usuario);
         }
     }
 
@@ -45,6 +46,7 @@ int numJugadores=0;
     public static Users buscarPlayerPorUsuario(String nombreUsuario){
         for (int index=0; index< players.length; index++){
             if(players[index]!=null && players[index].usuario.equals(nombreUsuario) ){
+            System.out.println("usuario encontrado: " + nombreUsuario);
             return players[index];
             }
         }
@@ -177,6 +179,11 @@ int numJugadores=0;
         System.arraycopy(user.logsUsuario, 0, logs, 0, user.logsUsuario.length);
         user.logsUsuario = logs;
 }
+
+    @Override
+    public void resize(Users[] item) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

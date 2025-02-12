@@ -32,10 +32,67 @@ public class Gui {
         btnLogin = funcionesGUI.hacerbtn(btnLogin,"Login");
         funcionesGUI.posicion(posicion, 0, 1);
         panelInicio.add(btnLogin, posicion);
-        
-        btnLogin.addActionListener(new ActionListener() {
+
+        btnCrear = funcionesGUI.hacerbtn(btnCrear, "Crear player");
+        funcionesGUI.posicion(posicion, 0, 2);
+        panelInicio.add(btnCrear, posicion);
+
+       
+
+        //LOGIN
+          panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
+          
+          labelUsuarioLogin = funcionesGUI.hacerLabel(labelUsuarioLogin, "Usuario: ");
+          
+          fieldUsuarioLogin = new JTextField(10);
+         
+          labelPasswordLogin = funcionesGUI.hacerLabel(labelPasswordLogin,"Password: ");
+          
+          fieldPasswordLogin = new JPasswordField(10);
+         
+          btnOkLogin = funcionesGUI.hacerbtn(btnOkLogin,"Ok");
+          
+          btnRegresar = funcionesGUI.hacerbtn(btnRegresar, "Regresar");
+
+          
+          btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
+                funcionesGUI.posicion(posicion, 0, 0);
+                posicion.gridwidth = 3;
+                posicion.anchor = GridBagConstraints.CENTER;
+                panelLogin.add(labelLogin, posicion);
+
+                funcionesGUI.posicion(posicion, 0, 1);
+                posicion.gridwidth = 1;
+                panelLogin.add(labelUsuarioLogin, posicion);
+
+                funcionesGUI.posicion(posicion, 1, 1);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelLogin.add(fieldUsuarioLogin,posicion);
+
+                funcionesGUI.posicion(posicion, 0, 2);
+                posicion.gridwidth = 1;
+                panelLogin.add(labelPasswordLogin,posicion);
+
+                funcionesGUI.posicion(posicion, 1, 2);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelLogin.add(fieldPasswordLogin,posicion);
+
+                funcionesGUI.posicion(posicion, 0,3);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelLogin.add(btnOkLogin,posicion);
+
+                funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
+                funcionesGUI.posicion(posicion, 1,3);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelLogin.add(btnRegresar,posicion);
+
                 boolean loginPosible = manejoPlayers.loginPosible();
                 
                 if(loginPosible){
@@ -49,52 +106,6 @@ public class Gui {
                     
                 }}
         });
-
-        btnCrear = funcionesGUI.hacerbtn(btnCrear, "Crear player");
-        funcionesGUI.posicion(posicion, 0, 2);
-        panelInicio.add(btnCrear, posicion);
-
-        btnCrear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelInicio.setVisible(false);
-                frameInicio.add(panelCrear);
-                panelCrear.setVisible(true);
-                frameInicio.revalidate();
-                frameInicio.repaint();
-            }
-        });
-
-        //LOGIN
-          panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
-          funcionesGUI.posicion(posicion, 0, 0);
-          posicion.gridwidth = 3;
-          posicion.anchor = GridBagConstraints.CENTER;
-          panelLogin.add(labelLogin, posicion);
-          
-          labelUsuarioLogin = funcionesGUI.hacerLabel(labelUsuarioLogin, "Usuario: ");
-          funcionesGUI.posicion(posicion, 0, 1);
-          posicion.gridwidth = 1;
-          panelLogin.add(labelUsuarioLogin, posicion);
-          
-          fieldUsuarioLogin = new JTextField(10);
-          funcionesGUI.posicion(posicion, 1, 1);
-          posicion.fill = GridBagConstraints.HORIZONTAL;
-          posicion.weightx = 1.0;
-          panelLogin.add(fieldUsuarioLogin,posicion);
-          
-          labelPasswordLogin = funcionesGUI.hacerLabel(labelPasswordLogin,"Password: ");
-          funcionesGUI.posicion(posicion, 0, 2);
-          posicion.gridwidth = 1;
-          panelLogin.add(labelPasswordLogin,posicion);
-          
-          fieldPasswordLogin = new JPasswordField(10);
-          funcionesGUI.posicion(posicion, 1, 2);
-          posicion.fill = GridBagConstraints.HORIZONTAL;
-          posicion.weightx = 1.0;
-          panelLogin.add(fieldPasswordLogin,posicion);
-
-          btnOkLogin = funcionesGUI.hacerbtn(btnOkLogin,"Ok");
           
           btnOkLogin.addActionListener(new ActionListener() {
             @Override
@@ -109,59 +120,71 @@ public class Gui {
                 }
                 else if(loginExitoso !=null){
                 XianquiVer1.player1 = loginExitoso;
+                panelLogin.removeAll();
                 frameInicio.setVisible(false);
                 menuPrincipal();
                 }
             }
         });
-          
-          funcionesGUI.posicion(posicion, 0,3);
-          posicion.fill = GridBagConstraints.HORIZONTAL;
-          posicion.weightx = 1.0;
-          panelLogin.add(btnOkLogin,posicion);
-
-        
-        btnRegresar = funcionesGUI.hacerbtn(btnRegresar, "Regresar");
-        funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
-        funcionesGUI.posicion(posicion, 1,3);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelLogin.add(btnRegresar,posicion);
-
         
         //CREAR PLAYER
         panelCrear = funcionesGUI.hacerPanel(panelCrear, labelCrear, "Crear Player");
-        funcionesGUI.posicion(posicion, 0, 0);
-        posicion.gridwidth = 2;
-        posicion.anchor = GridBagConstraints.CENTER;
-        panelCrear.add(labelCrear, posicion);
         
         labelUsuario = funcionesGUI.hacerLabel(labelUsuario, "Usuario:");
-        funcionesGUI.posicion(posicion, 0, 1);
-        posicion.gridwidth = 1;
-        panelCrear.add(labelUsuario, posicion);
         
-        labelPassword = funcionesGUI.hacerLabel(labelPassword, "Password: ");
-        funcionesGUI.posicion(posicion, 0, 2);
-        posicion.gridwidth = 1;
         panelCrear.add(labelPassword, posicion);
         
         btnOkCrear = funcionesGUI.hacerbtn(btnOkCrear, "Ok");
-        funcionesGUI.posicion(posicion, 0, 3);
-        panelCrear.add(btnOkCrear, posicion);
         
         fieldUser = new JTextField(10);
-        funcionesGUI.posicion(posicion, 1, 1);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelCrear.add(fieldUser, posicion);
-        
+       
         fieldPassword= new JPasswordField(10);
-        funcionesGUI.posicion(posicion, 1, 2);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelCrear.add(fieldPassword, posicion);
         
+        btnRegresarCrear = funcionesGUI.hacerbtn(btnRegresarCrear, "Regresar");
+        
+        btnCrear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                funcionesGUI.posicion(posicion, 0, 0);
+                posicion.gridwidth = 2;
+                posicion.anchor = GridBagConstraints.CENTER;
+                panelCrear.add(labelCrear, posicion);
+
+                funcionesGUI.posicion(posicion, 0, 1);
+                posicion.gridwidth = 1;
+                panelCrear.add(labelUsuario, posicion);
+
+                labelPassword = funcionesGUI.hacerLabel(labelPassword, "Password: ");
+                funcionesGUI.posicion(posicion, 0, 2);
+                posicion.gridwidth = 1;
+
+                funcionesGUI.posicion(posicion, 0, 3);
+                panelCrear.add(btnOkCrear, posicion);
+
+                funcionesGUI.posicion(posicion, 1, 1);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelCrear.add(fieldUser, posicion);
+
+                funcionesGUI.posicion(posicion, 1, 2);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelCrear.add(fieldPassword, posicion);
+        
+                funcionesGUI.posicion(posicion, 1,3);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                posicion.weightx = 1.0;
+                panelCrear.add(btnRegresarCrear,posicion);
+                funcionesGUI.regresar(btnRegresarCrear, panelCrear, panelInicio);
+        
+                panelInicio.setVisible(false);
+                frameInicio.add(panelCrear);
+                panelCrear.setVisible(true);
+                frameInicio.revalidate();
+                frameInicio.repaint();
+            }
+        });
+         
         btnOkCrear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -176,6 +199,7 @@ public class Gui {
                     }
                     else{
                     JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
+                    panelCrear.removeAll();
                     frameInicio.setVisible(false);
                     menuPrincipal();
                 } }
@@ -183,13 +207,8 @@ public class Gui {
             }
         });
         
-        btnRegresarCrear = funcionesGUI.hacerbtn(btnRegresarCrear, "Regresar");
-        funcionesGUI.posicion(posicion, 1,3);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        posicion.weightx = 1.0;
-        panelCrear.add(btnRegresarCrear,posicion);
-        funcionesGUI.regresar(btnRegresarCrear, panelCrear, panelInicio);
-        
+       
+       
         //SALIR
         btnSalir = funcionesGUI.hacerbtn(btnSalir,"Salir");
         funcionesGUI.posicion(posicion, 0, 4);
@@ -262,10 +281,12 @@ public class Gui {
                 JOptionPane.showMessageDialog(null, "No puede jugar contra usted mismo","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                XianquiVer1.player2 = playerContra;
-                JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + XianquiVer1.player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
-                Partidas partida = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
-                Tablero.mostrarTablero();
+                    if(XianquiVer1.player2 == null){
+                        XianquiVer1.player2 = playerContra;
+                        JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + XianquiVer1.player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
+                        Partidas partida = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
+                        Tablero.mostrarTablero();
+                    }
                 }
                 
             }

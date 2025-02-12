@@ -18,8 +18,11 @@ import javax.imageio.*;
 import javax.swing.*;
 
 public class soldado extends Pieza{
+    int movimientosParaRio;
+    
     public soldado(String color){
     super(color);
+    movimientosParaRio=1;
     }
 
     @Override
@@ -28,8 +31,79 @@ public class soldado extends Pieza{
     }
 
     @Override
-    boolean movimientoValido(int row, int column) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    boolean movimientoValido( int filaInicial, int colInicial, int fila, int col , Pieza pieza) {
+       int difFila= (fila-filaInicial);
+       int difCol = Math.abs(col-colInicial);
+       
+       
+       if(pieza.color.equals("rojo")){
+        if(difFila == -1 && difCol ==0 &&(movimientosParaRio >=1)){
+
+          System.out.println("no ha pasado el rio");
+          movimientosParaRio--;
+          return true;
+         }
+
+        else if ((filaInicial==4 && fila==6) || (filaInicial == 4 && fila == 6)){
+            if( difCol==0){
+                System.out.println("quiere pasar el rio");
+                return true;
+            }
+            else{
+            return false;
+            }
+        }
+
+        else if(movimientosParaRio==0 && difFila ==-1 && difCol == 0){
+            System.out.println("ya paso el rio");
+            return true;
+        }
+        else if(movimientosParaRio==0 && difFila==0 && difCol==1){
+            System.out.println("ya paso el rio");
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Movimiento no valido" , "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }  
+
+       }
+       else if(pieza.color.equals("negro")){
+        if(difFila == 1 && difCol ==0 &&(movimientosParaRio >=1)){
+
+           System.out.println("no ha pasado el rio");
+           movimientosParaRio--;
+           return true;
+          }
+
+         else if ((filaInicial==4 && fila==6) || (filaInicial == 4 && fila == 6)){
+             if( difCol==0){
+                 System.out.println("quiere pasar el rio");
+                 return true;
+             }
+             else{
+             return false;
+             }
+         }
+
+         else if(movimientosParaRio==0 && difFila ==1 && difCol == 0){
+             System.out.println("ya paso el rio");
+             return true;
+         }
+         else if(movimientosParaRio==0 && difFila==1 && difCol==1){
+             System.out.println("ya paso el rio");
+             return true;
+         }
+         else{
+             JOptionPane.showMessageDialog(null, "Movimiento no valido" , "Error", JOptionPane.ERROR_MESSAGE);
+             return false;
+         }  
+       }
+       else{
+        System.out.println("no cumplio ningun requisito");
+        return false;
+       }
+      
     }
 
     @Override
