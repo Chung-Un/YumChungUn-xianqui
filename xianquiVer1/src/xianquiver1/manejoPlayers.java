@@ -13,15 +13,16 @@ import javax.swing.JOptionPane;
  */
 public class manejoPlayers implements Almacenamiento<Users> {
 static Users[] players  = new Users[100];
-int numJugadores=0;
+static int numJugadores=0;
 
     @Override
     public void crear(Users user) {
         if (numJugadores>=players.length){
             resize();}
         else{
-            players[numJugadores++] = user;
+            players[numJugadores] = user;
             System.out.println("usuario creado:" + user.usuario);
+            numJugadores++;
         }
     }
 
@@ -32,6 +33,7 @@ int numJugadores=0;
                 players[index] = players[numJugadores - 1];
                 players[numJugadores - 1] = null;
                 numJugadores--;
+                System.out.println("jugador eliminado: " + user.usuario);
             break;
         }
     }
@@ -44,7 +46,7 @@ int numJugadores=0;
     }
     
     public static Users buscarPlayerPorUsuario(String nombreUsuario){
-        for (int index=0; index< players.length; index++){
+        for (int index=0; index< numJugadores; index++){
             if(players[index]!=null && players[index].usuario.equals(nombreUsuario) ){
             System.out.println("usuario encontrado: " + nombreUsuario);
             return players[index];
@@ -164,21 +166,13 @@ int numJugadores=0;
     
     public static void ranking(){}
     
-    public static void agregarLog(Logs log, Users player){
-        for (int index=0; index<player.logsUsuario.length;index++){
-            if (player.logsUsuario[index] ==null){
-            player.logsUsuario[index] = log;
-            break;
-            }
-            
-        }
-    }
+   
     
-    private void resizeLogsUsuario(Users user) {
-        Logs[] logs = new Logs[user.logsUsuario.length * 2];
-        System.arraycopy(user.logsUsuario, 0, logs, 0, user.logsUsuario.length);
-        user.logsUsuario = logs;
-}
+//    private void resizeLogsUsuario(Users user) {
+//        Logs[] logs = new Logs[user.logsUsuario.length * 2];
+//        System.arraycopy(user.logsUsuario, 0, logs, 0, user.logsUsuario.length);
+//        user.logsUsuario = logs;
+//}
 
     @Override
     public void resize(Users[] item) {

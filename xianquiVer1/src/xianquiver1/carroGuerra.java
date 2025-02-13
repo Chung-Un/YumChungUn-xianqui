@@ -83,6 +83,14 @@ public class carroGuerra extends Pieza {
         System.out.println("Error al cargar la imagen del carro guerra negro.");
     }}
 
-    }}
+    }
+
+    @Override
+    void comer(Pieza piezaSeleccionada, Pieza piezaAComer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+}
 
     

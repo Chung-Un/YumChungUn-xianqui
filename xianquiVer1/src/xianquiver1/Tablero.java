@@ -41,7 +41,7 @@ public static void mostrarTablero(){
     panelTablero.setSize(700,800);
     panelTablero.setLayout(new GridLayout(11,9));
     manejoTablero.hacerBotones();
-    
+
     panelContenedor.add(panelTablero,BorderLayout.CENTER);
     panelContenedor.add(panelNumeros,BorderLayout.WEST);
     panelContenedor.add(panelLetras,BorderLayout.NORTH);
@@ -57,7 +57,7 @@ public static void mostrarTablero(){
     labelTitulo.setForeground(new Color(249, 203, 67));
     panelGestionJuego.add(labelTitulo);
     
-    labelTurnos = funcionesGUI.hacerLabel(labelTurnos, "Turno de: ");
+    labelTurnos = funcionesGUI.hacerLabel(labelTurnos, "Turno de: " + XianquiVer1.player1.usuario);
     labelTurnos.setHorizontalAlignment(JLabel.CENTER);
     labelTurnos.setForeground(new Color(249, 203, 67));
     panelGestionJuego.add(labelTurnos);
@@ -74,6 +74,8 @@ public static void mostrarTablero(){
     fieldUser2.setEditable(false);
     
     panelGestionJuego.add(fieldUser1);
+    fieldUser1.setText("");
+    fieldUser1.setForeground(Color.WHITE);
     
     labelUser2 = funcionesGUI.hacerLabel(labelUser2, XianquiVer1.player2.usuario);
     labelUser2.setHorizontalAlignment(JLabel.CENTER);
@@ -81,6 +83,9 @@ public static void mostrarTablero(){
     
     panelGestionJuego.add(labelUser2);
     panelGestionJuego.add(fieldUser2);
+    
+    fieldUser2.setText("");
+    fieldUser2.setForeground(Color.WHITE);
     
     btnRetirar = funcionesGUI.hacerbtn(btnRetirar, "Retirarse");
     btnRetirar.setBackground(new Color(168, 156, 41));
@@ -92,7 +97,6 @@ public static void mostrarTablero(){
 }    
     
 static Pieza piezaSeleccionada;
-static Pieza[][] piezasTablero = new Pieza[11][9];
 static JButton[][] botonesTablero = new JButton[11][9];
 static int filaOrigen=-1, columnaOrigen=-1;
 static JLabel labelTurnos = new JLabel();

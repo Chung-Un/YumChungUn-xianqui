@@ -11,6 +11,6 @@ package xianquiver1;
 public class Logs {
     String log;
     public Logs(String log){
-    this.log = log;
+    this.log = "";
     }
 }

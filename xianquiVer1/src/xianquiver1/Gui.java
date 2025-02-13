@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Gui {
+public  class Gui {
     
     manejoPlayers manejoPlayers = new manejoPlayers();
 
@@ -19,7 +19,6 @@ public class Gui {
         frameInicio.setLocationRelativeTo(null);
         
         panelInicio = funcionesGUI.hacerPanel(panelInicio, labelInicio, "Menu de inicio");
-        GridBagConstraints posicion = new GridBagConstraints();
         posicion.insets = new Insets(20, 20, 20, 20);
         frameInicio.add(panelInicio);
         
@@ -251,23 +250,13 @@ public class Gui {
         });
         
         panelJugar = funcionesGUI.hacerPanel(panelJugar, labelJugar, "Jugar contra:");
-        funcionesGUI.posicion(posicion, 0, 0);
-        panelJugar.add(labelJugar,posicion);
-        
+       
         fieldJugadorContra = new JTextField(10);
-        funcionesGUI.posicion(posicion,0,1);
-        posicion.fill = GridBagConstraints.HORIZONTAL;
-        panelJugar.add(fieldJugadorContra,posicion);
         
         btnRegresarJugar = funcionesGUI.hacerbtn(btnRegresarJugar, "Regresar");
-        funcionesGUI.posicion(posicion, 0, 2);
-        panelJugar.add(btnRegresarJugar,posicion);
-        funcionesGUI.regresar(btnRegresarJugar,panelJugar,panelPrincipal);
         
         btnJugarListo = funcionesGUI.hacerbtn(btnJugarListo, "Jugar");
-        funcionesGUI.posicion(posicion,1,2);
-        panelJugar.add(btnJugarListo,posicion);
-        
+       
         btnJugarListo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -284,7 +273,9 @@ public class Gui {
                     if(XianquiVer1.player2 == null){
                         XianquiVer1.player2 = playerContra;
                         JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + XianquiVer1.player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
-                        Partidas partida = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
+                        XianquiVer1.partidaActual = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
+                        panelJugar.removeAll();
+                        panelJugar.setVisible(false);
                         Tablero.mostrarTablero();
                     }
                 }
@@ -336,6 +327,7 @@ public class Gui {
        framePrincipal.setVisible(true);
     
     }
+    static GridBagConstraints posicion = new GridBagConstraints();
     static JTextField fieldJugadorContra = new JTextField();
     static JButton btnRegresarJugar= new JButton();
     static JButton btnRegresarCrear= new JButton();

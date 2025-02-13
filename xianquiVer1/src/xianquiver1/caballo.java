@@ -88,5 +88,12 @@ public class caballo extends Pieza{
     }}
 
     }
+
+    @Override
+    void comer(Pieza piezaSeleccionada, Pieza piezaAComer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
     
 }

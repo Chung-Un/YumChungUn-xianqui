@@ -4,44 +4,47 @@
  */
 package xianquiver1;
 
-import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
  * @author chung
  */
 public class Users {
-    Logs[] logsUsuario = new Logs[100];
     Partidas[] partidasUsuario = new Partidas[100];
     String usuario, password;
+    Logs[] logsUsuario = new Logs[100];
+    Logs logUsuarioActual;
     int puntos,partidasGanadas,partidasEmpatadas,partidasPerdidas;
     boolean activo;
-    LocalDate fechaIngreso; 
+    Calendar fecha;
+    Date fechaIngreso;
+    int numLogsUser;
+
  
     public Users(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
         this.puntos = 0;
         this.partidasUsuario = partidasUsuario;
-        this.logsUsuario = logsUsuario;
+        this.logUsuarioActual = new Logs("");
+        this.logsUsuario = logsUsuario ;
         this.partidasEmpatadas=0;
         this.partidasGanadas=0;
         this.partidasPerdidas=0;
         this.activo = activo = true;
-        this.fechaIngreso = LocalDate.now();
+        fecha = Calendar.getInstance();
+        fechaIngreso = fecha.getTime();
+        this.numLogsUser=0;
     }
 
    
     
-    public LocalDate getFechaIngreso() {
+    public Date getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDate fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-   
     
     public String getUsuario() {
         return usuario;

@@ -77,10 +77,24 @@ public class funcionesGUI extends Gui {
        menuJugar.show(frame, 200, 200);
        
        nuevaPartida.addActionListener(e ->{ 
-           if(manejoPlayers.players.length <2){
+           if(manejoPlayers.numJugadores<2){
            JOptionPane.showMessageDialog(null, "No hay suficientes jugadores para iniciar una partida", "Error", JOptionPane.ERROR_MESSAGE);
            }
            else{
+                funcionesGUI.posicion(Gui.posicion, 0, 0);
+                panelJugar.add(labelJugar,Gui.posicion);
+                
+                funcionesGUI.posicion(posicion,0,1);
+                posicion.fill = GridBagConstraints.HORIZONTAL;
+                panelJugar.add(fieldJugadorContra,posicion);
+
+                funcionesGUI.posicion(posicion, 0, 2);
+                panelJugar.add(btnRegresarJugar,posicion);
+                funcionesGUI.regresar(btnRegresarJugar,panelJugar,panelPrincipal);
+
+                funcionesGUI.posicion(posicion,1,2);
+                panelJugar.add(btnJugarListo,posicion);
+                
                 panelPrincipal.setVisible(false);
                 framePrincipal.add(panelJugar);
                 panelJugar.setVisible(true);
@@ -152,6 +166,7 @@ public class funcionesGUI extends Gui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelActual.setVisible(false);
+                panelActual.removeAll();
                 panelVolver.setVisible(true);
                 panelVolver.repaint();
                 panelVolver.revalidate();

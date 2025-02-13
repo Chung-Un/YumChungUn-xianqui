@@ -44,7 +44,7 @@ public class soldado extends Pieza{
           return true;
          }
 
-        else if ((filaInicial==4 && fila==6) || (filaInicial == 4 && fila == 6)){
+        else if ((filaInicial==4 && fila==6) || (filaInicial == 6 && fila == 4)){
             if( difCol==0){
                 System.out.println("quiere pasar el rio");
                 return true;
@@ -90,7 +90,7 @@ public class soldado extends Pieza{
              System.out.println("ya paso el rio");
              return true;
          }
-         else if(movimientosParaRio==0 && difFila==1 && difCol==1){
+         else if(movimientosParaRio==0 && difFila==0 && difCol==1){
              System.out.println("ya paso el rio");
              return true;
          }
@@ -144,5 +144,31 @@ public class soldado extends Pieza{
         System.out.println("Error al cargar la imagen del soldado negro.");
     }}
 
+    }
+
+    @Override
+    void comer(Pieza piezaSeleccionada,Pieza piezaAComer) {
+        if(piezaSeleccionada.getColor().equals(piezaAComer.getColor())){
+            return;
+        }
+        else{
+            piezaAComer.borrarPieza(piezaAComer);
+            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
+                    
+            Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+            Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
+            playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
+            
+            if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
+                Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
+            }
+            else{
+                Tablero.fieldUser2.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
+            }
+        }
     }
 }

@@ -87,85 +87,99 @@ public class manejoTablero {
             case "carroGuerraNegro":
                     Pieza carroGuerraNegro = new carroGuerra("negro");
                     carroGuerraNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = carroGuerraNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = carroGuerraNegro;
                     return carroGuerraNegro;
                
             case "caballoNegro":
                     Pieza caballoNegro = new caballo("negro");
                     caballoNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = caballoNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = caballoNegro;
                     return caballoNegro;
             
             case"elefanteNegro":
                     Pieza elefanteNegro = new elefante("negro");
                     elefanteNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = elefanteNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = elefanteNegro;
                     return elefanteNegro;
                 
             case "generalNegro":
                     Pieza generalNegro = new general("negro");
                     generalNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = generalNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = generalNegro;
                     return generalNegro;
                     
             case "oficialNegro":
                     Pieza oficialNegro = new oficial("negro");
                     oficialNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = oficialNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = oficialNegro;
                     return oficialNegro;
                     
             case "canonNegro":
                     Pieza canonNegro = new canon ("negro");
                     canonNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = canonNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = canonNegro;
                     return canonNegro;
                     
             case "soldadoNegro":
                     Pieza soldadoNegro = new soldado("negro");
                     soldadoNegro.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = soldadoNegro;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = soldadoNegro;
                     return soldadoNegro;
                 
             case "soldadoRojo":
                     Pieza soldadoRojo = new soldado("rojo");
                     soldadoRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = soldadoRojo;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = soldadoRojo;
                     return soldadoRojo;
                 
             case "canonRojo":
                     Pieza canonRojo = new canon("rojo");
                     canonRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = canonRojo;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = canonRojo;
                     return canonRojo;
                 
             case "carroGuerraRojo":
                     Pieza carroGuerraRojo =new carroGuerra("rojo");
                     carroGuerraRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = carroGuerraRojo;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = carroGuerraRojo;
                     return carroGuerraRojo;
 
             case "caballoRojo":
                     Pieza caballoRojo = new caballo("rojo");
                     caballoRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = caballoRojo;
+                    Pieza.numPiezas++;
+                    Pieza.piezasTablero[row - 1][col - 1] = caballoRojo;
                     return caballoRojo;
                 
             case "elefanteRojo":
                     Pieza elefanteRojo = new elefante("rojo");
-                    Tablero.piezasTablero[row - 1][col - 1] = elefanteRojo;
+                    Pieza.piezasTablero[row - 1][col - 1] = elefanteRojo;
                     elefanteRojo.ponerImagen(btn);
+                    Pieza.numPiezas++;
                     return elefanteRojo;
             
             case "oficialRojo" :
                     Pieza oficialRojo = new oficial("rojo");
                     oficialRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = oficialRojo;
+                    Pieza.piezasTablero[row - 1][col - 1] = oficialRojo;
+                    Pieza.numPiezas++;
                     return oficialRojo;
                 
             case "generalRojo":
                     Pieza generalRojo = new general("rojo");
                     generalRojo.ponerImagen(btn);
-                    Tablero.piezasTablero[row - 1][col - 1] = generalRojo;
+                    Pieza.piezasTablero[row - 1][col - 1] = generalRojo;
+                    Pieza.numPiezas++;
                     return generalRojo;
            
         }
@@ -210,11 +224,23 @@ public class manejoTablero {
         JOptionPane.showMessageDialog(null,"La celda presionada no contiene ninguna pieza", "Error",JOptionPane.ERROR_MESSAGE);
         }
         else{
-        Tablero.filaOrigen=f;
-        Tablero.columnaOrigen = c;
-        Tablero.piezaSeleccionada = Tablero.piezasTablero[f][c];
-        Tablero.botonesTablero[f][c].setBackground(Color.red);
-        System.out.println("boton que se quiere mover de fila: " + (Tablero.filaOrigen+1) + " columna: " + (Tablero.columnaOrigen+1));
+            Tablero.filaOrigen=f;
+            Tablero.columnaOrigen = c;
+            Tablero.piezaSeleccionada = Pieza.piezasTablero[f][c];
+            
+            if((Tablero.piezaSeleccionada.getColor().equals("rojo")) && (XianquiVer1.partidaActual.turno ==true)){
+                Tablero.botonesTablero[f][c].setBackground(new Color(168, 156, 41));
+                System.out.println("boton que se quiere mover de fila: " + (Tablero.filaOrigen+1) + " columna: " + (Tablero.columnaOrigen+1));
+            }
+            else if((Tablero.piezaSeleccionada.getColor().equals("negro")) && (XianquiVer1.partidaActual.turno == false)){
+                Tablero.botonesTablero[f][c].setBackground(Color.red);
+                System.out.println("boton que se quiere mover de fila: " + (Tablero.filaOrigen+1) + " columna: " + (Tablero.columnaOrigen+1));
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Pieza seleccionada no es suya","Error", JOptionPane.ERROR_MESSAGE);
+                Tablero.filaOrigen=-1;
+                Tablero.columnaOrigen=-1;
+            }
         }
     
     }else {
@@ -223,18 +249,25 @@ public class manejoTablero {
     if (Tablero.piezaSeleccionada!=null ){
         Pieza pieza = Tablero.piezaSeleccionada;
             if(pieza.movimientoValido(Tablero.filaOrigen, Tablero.columnaOrigen, f, c, pieza)){
+                Pieza piezaEnemiga = Pieza.piezasTablero[f][c];
+                
+                if(piezaEnemiga!= null){
+                pieza.comer(pieza, piezaEnemiga);
+                }
                 Tablero.botonesTablero[f][c].setIcon(Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].getIcon());
                 Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setIcon(null);
 
-                Tablero.piezasTablero[f][c] = pieza;
-                Tablero.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = null;
+                Pieza.piezasTablero[f][c] = pieza;
+                Pieza.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = null;
+                
 
                 System.out.println("Pieza movida a fila: " + (f + 1) + " columna: " + (c + 1));
             } 
     
     Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setBackground(calcularColor(Tablero.filaOrigen, Tablero.columnaOrigen));
 
-    
+    manejoPartidas.cambiarTurnos(XianquiVer1.partidaActual);
+
     Tablero.filaOrigen=-1;
     Tablero.columnaOrigen=-1;
    }
@@ -242,43 +275,43 @@ public class manejoTablero {
 
 }}
 
-public static Color calcularColor(int fila, int columna){
-    
- if ((fila + columna) % 2 == 0) {
- return esPalacio(fila + 1, columna + 1) ? new Color(180, 104, 255) : new Color(251, 165, 24); 
-} else {
- return esPalacio(fila + 1, columna + 1) ? new Color(210, 164, 255) : new Color(249, 203, 67); } }
+    public static Color calcularColor(int fila, int columna){
+
+     if ((fila + columna) % 2 == 0) {
+        return esPalacio(fila + 1, columna + 1) ? new Color(180, 104, 255) : new Color(251, 165, 24); 
+    } else {
+        return esPalacio(fila + 1, columna + 1) ? new Color(210, 164, 255) : new Color(249, 203, 67); } }
 
 
-public static boolean esPalacio (int filas, int columnas){
+    public static boolean esPalacio (int filas, int columnas){
 
-    if(filas==11 || filas ==10 || filas == 9 || filas ==1 || filas == 2 || filas ==3){
-        if (columnas==4 || columnas ==6 ||columnas ==5 ){
-        return true;
+        if(filas==11 || filas ==10 || filas == 9 || filas ==1 || filas == 2 || filas ==3){
+                if (columnas==4 || columnas ==6 ||columnas ==5 ){
+                    return true;
+            }
+            else
+                return false;
+
+            }
+        return false;   
         }
-        else
-        return false;
 
-        }
-    return false;   
-    }
+    public static void agregarLetras(){
+        String[] letras = {"a","b","c","d","e","f","g","h","i"};
 
-public static void agregarLetras(){
-    String[] letras = {"a","b","c","d","e","f","g","h","i"};
-
-    for (int index=0;index<letras.length;index++){
-    JLabel labelLetras = new JLabel(letras[index]);
-    labelLetras.setFont(new Font("Arial",Font.PLAIN,16));
-    labelLetras.setForeground(new Color(251, 165, 24));
-    Tablero.panelLetras.add(labelLetras);
-}}
-
-public static void agregarNumeros(){
-    for (int index=1; index<=10; index++){
-    JLabel labelNumeros = new JLabel(String.valueOf(index));
-    labelNumeros.setFont(new Font("Arial", Font.PLAIN,16));
-    labelNumeros.setForeground(new Color(251,165,24));
-    Tablero.panelNumeros.add(labelNumeros);
+        for (int index=0;index<letras.length;index++){
+            JLabel labelLetras = new JLabel(letras[index]);
+            labelLetras.setFont(new Font("Arial",Font.PLAIN,16));
+            labelLetras.setForeground(new Color(251, 165, 24));
+            Tablero.panelLetras.add(labelLetras);
     }}
-    
+
+    public static void agregarNumeros(){
+        for (int index=1; index<=10; index++){
+            JLabel labelNumeros = new JLabel(String.valueOf(index));
+            labelNumeros.setFont(new Font("Arial", Font.PLAIN,16));
+            labelNumeros.setForeground(new Color(251,165,24));
+            Tablero.panelNumeros.add(labelNumeros);
+        }}
+
 }

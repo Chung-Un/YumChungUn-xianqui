@@ -14,7 +14,12 @@ public class XianquiVer1 {
      * @param args the command line arguments
      */
     public static Users player1;
+    public static Logs logsPlayer1 = new Logs(""); 
+    public static Logs logsPlayer2 = new Logs("");
+    public static Logs[] logsJuego;
     public static Users player2;
+    public static Partidas partidaActual;
+    
     public static void main(String[] args) {
         Gui gui = new Gui();
         
