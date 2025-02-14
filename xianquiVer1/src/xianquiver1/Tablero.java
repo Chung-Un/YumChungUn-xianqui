@@ -40,6 +40,7 @@ public static void mostrarTablero(){
     panelTablero.setBackground(new Color(249, 203, 67));
     panelTablero.setSize(700,800);
     panelTablero.setLayout(new GridLayout(11,9));
+    
     manejoTablero.hacerBotones();
 
     panelContenedor.add(panelTablero,BorderLayout.CENTER);

@@ -33,7 +33,7 @@ public class Users {
         this.partidasEmpatadas=0;
         this.partidasGanadas=0;
         this.partidasPerdidas=0;
-        this.activo = activo = true;
+        activo= true;
         fecha = Calendar.getInstance();
         fechaIngreso = fecha.getTime();
         this.numLogsUser=0;

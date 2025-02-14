@@ -35,7 +35,11 @@ public class soldado extends Pieza{
        int difFila= (fila-filaInicial);
        int difCol = Math.abs(col-colInicial);
        
-       
+       if(fila==5){
+           JOptionPane.showMessageDialog(null, "Te vas ahogas..", "Error", JOptionPane.ERROR_MESSAGE);
+           return false;
+       }
+       else{
        if(pieza.color.equals("rojo")){
         if(difFila == -1 && difCol ==0 &&(movimientosParaRio >=1)){
 
@@ -103,7 +107,7 @@ public class soldado extends Pieza{
         System.out.println("no cumplio ningun requisito");
         return false;
        }
-      
+       }
     }
 
     @Override

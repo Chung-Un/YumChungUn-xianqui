@@ -32,11 +32,21 @@ public class caballo extends Pieza{
     boolean movimientoValido(int filaInicial, int colInicial, int fila, int col, Pieza pieza) {
         int difFila = Math.abs(fila-filaInicial);
         int difCol = Math.abs(col-colInicial);
+        int midFila = (filaInicial+fila)/2;
+        int midCol = (colInicial + col)/2;
         
         if(difFila==1 && difCol == 2){
+           if(Pieza.piezasTablero[fila][midCol]!=null){
+                JOptionPane.showMessageDialog(null, "Punto de pivote no esta vacio");
+                return false;
+            }
            return true; 
         }
         else if(difFila ==2 && difCol==1){
+            if(Pieza.piezasTablero[midFila][col]!=null){
+                JOptionPane.showMessageDialog(null, "Punto de pivote no esta vacio");
+                return false;
+            }
             return true;
         }
         else if(fila==5){
@@ -91,8 +101,30 @@ public class caballo extends Pieza{
 
     @Override
     void comer(Pieza piezaSeleccionada, Pieza piezaAComer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(piezaSeleccionada.getColor().equals(piezaAComer.getColor())){
+            return;
+        }
+        else{
+            piezaAComer.borrarPieza(piezaAComer);
+            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
+                    
+            Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+            Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
+            playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
+            
+            if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
+                Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
+            }
+            else{
+                Tablero.fieldUser2.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
+            }
+        }
     }
+
 
     
     

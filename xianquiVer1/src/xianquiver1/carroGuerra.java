@@ -33,16 +33,40 @@ public class carroGuerra extends Pieza {
         int difFila = Math.abs(fila-filaInicial);
         int difCol = Math.abs(col - colInicial);
         
-        if(difFila==1 && difCol ==0){
+        if(fila==5){
+           JOptionPane.showMessageDialog(null, "Te vas ahogas..", "Error", JOptionPane.ERROR_MESSAGE);
+           return false;
+        }
+        else{
+        if(difFila>0 && difCol ==0){
+            int filaInicio = Math.min(filaInicial, fila)+1;
+            int filaFinal = Math.max(filaInicial, fila);
+            for (int filaRecorrer=filaInicio; filaRecorrer<filaFinal ;filaRecorrer++ ){
+                if(Pieza.piezasTablero[filaRecorrer][col]!=null){
+                    JOptionPane.showMessageDialog(null, "Hay piezas en tu camino", "Error",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+            
             return true;
         }
-        else if(difFila==0 && difCol==1){
+        else if(difFila==0 && difCol>0){
+            int colInicio = Math.min(colInicial, col);
+            int colFinal = Math.max(colInicial, col);
+            
+            for(int colRecorrer = colInicio; colRecorrer<colFinal; colRecorrer++){
+                if(Pieza.piezasTablero[fila][colRecorrer]!=null){
+                 JOptionPane.showMessageDialog(null, "Hay piezas en tu camino", "Error",JOptionPane.ERROR_MESSAGE);
+                 return false;
+                }
+            }
+              
             return true;
         }
         else{
             JOptionPane.showMessageDialog(null, "Movimiento no valido", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
+        }}
     }
 
     @Override
@@ -87,7 +111,30 @@ public class carroGuerra extends Pieza {
 
     @Override
     void comer(Pieza piezaSeleccionada, Pieza piezaAComer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(piezaSeleccionada.getColor().equals(piezaAComer.getColor())){
+            return;
+        }
+        else{
+            piezaAComer.borrarPieza(piezaAComer);
+            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
+                    
+            Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+            Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
+            playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
+                    piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
+            
+            if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
+                Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
+            }
+            else{
+                Tablero.fieldUser2.setText(playerEnTurno.logUsuarioActual.log);
+                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
+            }
+        
+        
+        }
     }
 
     

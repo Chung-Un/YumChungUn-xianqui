@@ -276,6 +276,7 @@ public  class Gui {
                         XianquiVer1.partidaActual = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
                         panelJugar.removeAll();
                         panelJugar.setVisible(false);
+                        framePrincipal.setVisible(false);
                         Tablero.mostrarTablero();
                     }
                 }

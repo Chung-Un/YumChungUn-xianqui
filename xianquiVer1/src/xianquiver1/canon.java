@@ -18,8 +18,13 @@ import javax.imageio.*;
 import javax.swing.*;
 
 public class canon extends Pieza{
+    boolean capturoPieza;
+    int vecesSaltadas;
+    
     public canon (String color){
     super(color);
+    capturoPieza=false;
+    vecesSaltadas=0;
     }
 
     @Override
@@ -28,20 +33,45 @@ public class canon extends Pieza{
     }
 
     @Override
-    boolean movimientoValido(int filaInicial, int colInicial, int fila, int col, Pieza pieza) {
-        int difFila = Math.abs(fila-filaInicial);
-        int difCol = Math.abs(col - colInicial);
-        
-        if(difFila==1 && difCol ==0){
-            return true;
-        }
-        else if(difFila==0 && difCol==1){
-            return true;
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Movimiento no valido", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+    boolean movimientoValido(int filaInicial, int colInicial, int fila , int col , Pieza pieza) {
+//        int difFila = Math.abs(fila-filaInicial);
+//        int difCol = Math.abs(col - colInicial);
+//        
+//        if(fila==5){
+//           JOptionPane.showMessageDialog(null, "Te vas ahogas..", "Error", JOptionPane.ERROR_MESSAGE);
+//           return false;
+//        }
+//        else{
+//        if(difFila>0 && difCol ==0){
+//            int filaInicio = Math.min(filaInicial, fila)+1;
+//            int filaFinal = Math.max(filaInicial, fila);
+//            for (int filaRecorrer=filaInicio; filaRecorrer<filaFinal ;filaRecorrer++ ){
+//                if(Pieza.piezasTablero[filaRecorrer][col]!=null){
+//                    JOptionPane.showMessageDialog(null, "Hay piezas en tu camino", "Error",JOptionPane.ERROR_MESSAGE);
+//                    return false;
+//                }
+//            }
+//            
+//            return true;
+//        }
+//        else if(difFila==0 && difCol>0){
+//            int colInicio = Math.min(colInicial, col);
+//            int colFinal = Math.max(colInicial, col);
+//            
+//            for(int colRecorrer = colInicio; colRecorrer<colFinal; colRecorrer++){
+//                if(Pieza.piezasTablero[fila][colRecorrer]!=null){
+//                 JOptionPane.showMessageDialog(null, "Hay piezas en tu camino", "Error",JOptionPane.ERROR_MESSAGE);
+//                 return false;
+//                }
+//            }
+//              
+//            return true;
+//        }
+//        else{
+//            JOptionPane.showMessageDialog(null, "Movimiento no valido", "Error", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }}
+    return true;
     }
 
     @Override
@@ -89,5 +119,7 @@ public class canon extends Pieza{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public void saltar(){
     
+    }
 }

@@ -216,64 +216,68 @@ public class manejoTablero {
            
 
 
-    public static void botonPresionado(int f, int c){
-
-    if (Tablero.filaOrigen==-1 && Tablero.columnaOrigen ==-1){
-    //primera vez presionado
-        if(Tablero.botonesTablero[f][c].getIcon() == null){
-        JOptionPane.showMessageDialog(null,"La celda presionada no contiene ninguna pieza", "Error",JOptionPane.ERROR_MESSAGE);
-        }
-        else{
-            Tablero.filaOrigen=f;
+    public static void botonPresionado(int f, int c) {
+    if (Tablero.filaOrigen == -1 && Tablero.columnaOrigen == -1) {
+        // primera vez presionado
+        if (Tablero.botonesTablero[f][c].getIcon() == null) {
+            JOptionPane.showMessageDialog(null, "La celda presionada no contiene ninguna pieza", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            Tablero.filaOrigen = f;
             Tablero.columnaOrigen = c;
             Tablero.piezaSeleccionada = Pieza.piezasTablero[f][c];
-            
-            if((Tablero.piezaSeleccionada.getColor().equals("rojo")) && (XianquiVer1.partidaActual.turno ==true)){
+
+            if ((Tablero.piezaSeleccionada.getColor().equals("rojo") && XianquiVer1.partidaActual.turno) ||
+                (Tablero.piezaSeleccionada.getColor().equals("negro") && !XianquiVer1.partidaActual.turno)) {
+                
                 Tablero.botonesTablero[f][c].setBackground(new Color(168, 156, 41));
-                System.out.println("boton que se quiere mover de fila: " + (Tablero.filaOrigen+1) + " columna: " + (Tablero.columnaOrigen+1));
-            }
-            else if((Tablero.piezaSeleccionada.getColor().equals("negro")) && (XianquiVer1.partidaActual.turno == false)){
-                Tablero.botonesTablero[f][c].setBackground(Color.red);
-                System.out.println("boton que se quiere mover de fila: " + (Tablero.filaOrigen+1) + " columna: " + (Tablero.columnaOrigen+1));
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Pieza seleccionada no es suya","Error", JOptionPane.ERROR_MESSAGE);
-                Tablero.filaOrigen=-1;
-                Tablero.columnaOrigen=-1;
+                System.out.println("Botón seleccionado: fila " + (Tablero.filaOrigen + 1) + ", columna " + (Tablero.columnaOrigen + 1));
+            } else {
+                JOptionPane.showMessageDialog(null, "Pieza seleccionada no es suya", "Error", JOptionPane.ERROR_MESSAGE);
+                Tablero.filaOrigen = -1;
+                Tablero.columnaOrigen = -1;
             }
         }
-    
-    }else {
-    //segunda vez presionado
-    
-    if (Tablero.piezaSeleccionada!=null ){
-        Pieza pieza = Tablero.piezaSeleccionada;
-            if(pieza.movimientoValido(Tablero.filaOrigen, Tablero.columnaOrigen, f, c, pieza)){
+    } else {
+        // segunda vez presionado
+        if (Tablero.piezaSeleccionada != null) {
+            Pieza pieza = Tablero.piezaSeleccionada;
+
+            if (pieza.movimientoValido(Tablero.filaOrigen, Tablero.columnaOrigen, f, c, pieza)) {
                 Pieza piezaEnemiga = Pieza.piezasTablero[f][c];
-                
-                if(piezaEnemiga!= null){
-                pieza.comer(pieza, piezaEnemiga);
+
+                if (piezaEnemiga != null) {
+                    if (pieza.getColor().equals(piezaEnemiga.getColor())) {
+                        JOptionPane.showMessageDialog(null, "No puedes comer tu propia pieza", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        pieza.comer(pieza, piezaEnemiga);
+                    }
                 }
+
                 Tablero.botonesTablero[f][c].setIcon(Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].getIcon());
                 Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setIcon(null);
 
                 Pieza.piezasTablero[f][c] = pieza;
                 Pieza.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = null;
-                
 
-                System.out.println("Pieza movida a fila: " + (f + 1) + " columna: " + (c + 1));
-            } 
-    
-    Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setBackground(calcularColor(Tablero.filaOrigen, Tablero.columnaOrigen));
+                System.out.println("Pieza movida a fila: " + (f + 1) + ", columna: " + (c + 1));
 
-    manejoPartidas.cambiarTurnos(XianquiVer1.partidaActual);
 
-    Tablero.filaOrigen=-1;
-    Tablero.columnaOrigen=-1;
-   }
-    
+                manejoPartidas.cambiarTurnos(XianquiVer1.partidaActual);
 
-}}
+                if (visionDirectaGenerales()) {
+                    JOptionPane.showMessageDialog(null, "¡Los generales tienen visión directa!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setBackground(calcularColor(Tablero.filaOrigen, Tablero.columnaOrigen));
+
+        }
+
+        Tablero.filaOrigen = -1;
+        Tablero.columnaOrigen = -1;
+    }
+}
 
     public static Color calcularColor(int fila, int columna){
 
@@ -285,16 +289,21 @@ public class manejoTablero {
 
     public static boolean esPalacio (int filas, int columnas){
 
-        if(filas==11 || filas ==10 || filas == 9 || filas ==1 || filas == 2 || filas ==3){
+        if(filas==11 || filas ==10 || filas == 9 || filas ==1|| filas == 2 || filas ==3){
                 if (columnas==4 || columnas ==6 ||columnas ==5 ){
+                     System.out.println("Resultado de esPalacio: " + "false");
                     return true;
             }
-            else
-                return false;
-
+                else{
+                    System.out.println("Fuera de los límites del tablero.");
+                    return false;
+                }
+                
             }
-        return false;   
+        else{
+            return false;
         }
+    }
 
     public static void agregarLetras(){
         String[] letras = {"a","b","c","d","e","f","g","h","i"};
@@ -313,5 +322,40 @@ public class manejoTablero {
             labelNumeros.setForeground(new Color(251,165,24));
             Tablero.panelNumeros.add(labelNumeros);
         }}
-
+    
+    public static boolean visionDirectaGenerales(){
+    int filaGeneral1=-1, filaGeneral2=-1;
+    int colGeneral=-1;
+    
+    for(int fila=0; fila<11 ; fila++ ){
+        for(int col=0; col<9;col++){
+            Pieza piezaTablero = Pieza.piezasTablero[fila][col];
+            
+            if(piezaTablero!=null && (piezaTablero.getTipoPieza().equals("general"))){
+                if (filaGeneral1==-1){
+                    filaGeneral1=fila;
+                    colGeneral=col;
+                }
+                else{
+                    filaGeneral2=fila;
+                    if(colGeneral!=col){
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    
+    int filaInicio = Math.min(filaGeneral1, filaGeneral2)+1;
+    int filaFinal = Math.max(filaGeneral1, filaGeneral2);
+    
+    for(int fila = filaInicio ; fila<filaFinal; fila++){
+        if(Pieza.piezasTablero[fila][colGeneral] !=null){
+        return false;
+        }
+    }
+   
+    return true;
+            
+    }
 }
