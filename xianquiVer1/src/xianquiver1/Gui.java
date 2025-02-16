@@ -49,7 +49,7 @@ public  class Gui {
           
           fieldPasswordLogin = new JPasswordField(10);
          
-          btnOkLogin = funcionesGUI.hacerbtn(btnOkLogin,"Ok");
+          btnLoginPlayer = funcionesGUI.hacerbtn(btnLoginPlayer,"Ok");
           
           btnRegresar = funcionesGUI.hacerbtn(btnRegresar, "Regresar");
 
@@ -84,7 +84,7 @@ public  class Gui {
                 funcionesGUI.posicion(posicion, 0,3);
                 posicion.fill = GridBagConstraints.HORIZONTAL;
                 posicion.weightx = 1.0;
-                panelLogin.add(btnOkLogin,posicion);
+                panelLogin.add(btnLoginPlayer,posicion);
 
                 funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
                 funcionesGUI.posicion(posicion, 1,3);
@@ -106,23 +106,29 @@ public  class Gui {
                 }}
         });
           
-          btnOkLogin.addActionListener(new ActionListener() {
+          if (btnLoginPlayer.getActionListeners().length > 0) {
+        btnLoginPlayer.removeActionListener(btnLoginPlayer.getActionListeners()[0]);
+        }    
+          btnLoginPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String usuario = fieldUsuarioLogin.getText();
+                String usuarioBase = fieldUsuarioLogin.getText();
+                String usuarioDelimeter[] = usuarioBase.split(" ");
+                
+                String usuario = usuarioDelimeter[0];
                 String password = new String(fieldPasswordLogin.getPassword());
                 
                 Users loginExitoso= manejoPlayers.verificarLogin(usuario, password);
                 
-                if (loginExitoso== null){
+                if (loginExitoso.usuario==null){
                 JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(loginExitoso !=null){
+
                 XianquiVer1.player1 = loginExitoso;
+                JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
                 panelLogin.removeAll();
                 frameInicio.setVisible(false);
                 menuPrincipal();
-                }
             }
         });
         
@@ -133,7 +139,7 @@ public  class Gui {
         
         panelCrear.add(labelPassword, posicion);
         
-        btnOkCrear = funcionesGUI.hacerbtn(btnOkCrear, "Ok");
+        btnCrearPlayer = funcionesGUI.hacerbtn(btnCrearPlayer, "Ok");
         
         fieldUser = new JTextField(10);
        
@@ -158,7 +164,7 @@ public  class Gui {
                 posicion.gridwidth = 1;
 
                 funcionesGUI.posicion(posicion, 0, 3);
-                panelCrear.add(btnOkCrear, posicion);
+                panelCrear.add(btnCrearPlayer, posicion);
 
                 funcionesGUI.posicion(posicion, 1, 1);
                 posicion.fill = GridBagConstraints.HORIZONTAL;
@@ -175,6 +181,7 @@ public  class Gui {
                 posicion.weightx = 1.0;
                 panelCrear.add(btnRegresarCrear,posicion);
                 funcionesGUI.regresar(btnRegresarCrear, panelCrear, panelInicio);
+                btnCrearPlayer.setEnabled(true);
         
                 panelInicio.setVisible(false);
                 frameInicio.add(panelCrear);
@@ -184,10 +191,16 @@ public  class Gui {
             }
         });
          
-        btnOkCrear.addActionListener(new ActionListener() {
+    if (btnCrearPlayer.getActionListeners().length > 0) {
+    btnCrearPlayer.removeActionListener(btnCrearPlayer.getActionListeners()[0]);
+    }    
+    btnCrearPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String usuario = fieldUser.getText();
+                String usuarioBase = fieldUser.getText();
+                String usuarioDelimeter[] = usuarioBase.split(" ");
+                
+                String usuario = usuarioDelimeter[0];
                 String password = new String(fieldPassword.getPassword());
 
                 XianquiVer1.player1 = manejoPlayers.verificarCrearPlayer(usuario, password);
@@ -199,12 +212,16 @@ public  class Gui {
                     else{
                     JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
                     panelCrear.removeAll();
+                    panelCrear.remove(btnCrearPlayer);
                     frameInicio.setVisible(false);
                     menuPrincipal();
+                    return;
                 } }
                 else {JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);}
             }
         });
+
+
         
        
        
@@ -257,10 +274,13 @@ public  class Gui {
         
         btnJugarListo = funcionesGUI.hacerbtn(btnJugarListo, "Jugar");
        
-        btnJugarListo.addActionListener(new ActionListener() {
+         btnJugarListo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String usuarioJugadorContra = fieldJugadorContra.getText();
+                String usuarioBase = fieldJugadorContra.getText();
+                String usuarioDelimeter[] = usuarioBase.split(" ");
+                
+                String usuarioJugadorContra = usuarioDelimeter[0];
                 
                 Users playerContra= manejoPlayers.buscarPlayerPorUsuario(usuarioJugadorContra);
                 if(playerContra == null){
@@ -278,6 +298,7 @@ public  class Gui {
                         panelJugar.setVisible(false);
                         framePrincipal.setVisible(false);
                         Tablero.mostrarTablero();
+                        return;
                     }
                 }
                 
@@ -312,16 +333,23 @@ public  class Gui {
         panelPrincipal.add(btnLogout, posicion);
         
         btnLogout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              XianquiVer1.player1 = null;
-              framePrincipal.setVisible(false);
-              pantallaInicio();
-              panelCrear.setVisible(false);
-              panelLogin.setVisible(false);
-              panelInicio.setVisible(true);
-            }
-        });
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        XianquiVer1.player1 = null;
+        XianquiVer1.player2 = null;
+        XianquiVer1.partidaActual = null; 
+        
+        framePrincipal.setVisible(false);  
+        panelCrear.removeAll();  
+        panelLogin.removeAll();  
+        
+        pantallaInicio();  
+        panelCrear.setVisible(false);
+        panelLogin.setVisible(false);
+        panelInicio.setVisible(true);  
+    }
+});
+
         
         
        
@@ -362,8 +390,8 @@ public  class Gui {
     static JPanel panelCrear = new JPanel();
     static JLabel labelUsuario = new JLabel();
     static JLabel labelPassword = new JLabel();
-    static JButton btnOkLogin = new JButton();
-    static JButton btnOkCrear = new JButton();
+    static JButton btnLoginPlayer = new JButton();
+    static JButton btnCrearPlayer = new JButton();
     static JTextField fieldUser = new JTextField();
     static JPasswordField fieldPassword = new JPasswordField();
 }

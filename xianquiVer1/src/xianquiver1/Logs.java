@@ -11,6 +11,11 @@ package xianquiver1;
 public class Logs {
     String log;
     public Logs(String log){
-    this.log = "";
+    this.log = log;
     }
+    
+    public String toString(){
+        return log;
+    }
+    
 }

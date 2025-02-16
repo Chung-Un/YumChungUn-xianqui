@@ -4,15 +4,19 @@
  */
 package xianquiver1;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author chung
  */
 public class manejoPartidas implements Almacenamiento<Partidas>{
-    
     static Partidas[] partidas =new Partidas[100];
     int numPartidas;
+    Users playerGanador;
 
+    static Gui gui = new Gui();
+    
     @Override
     public void crear(Partidas partidaActual) {
        if (numPartidas > partidas.length){
@@ -66,6 +70,70 @@ public class manejoPartidas implements Almacenamiento<Partidas>{
             return XianquiVer1.player1;
         }
         
+    }
+    
+    public static boolean ganar(Pieza pieza, Pieza piezaComida){
+        boolean ganar = piezaComida.getTipoPieza().equals("general");
+        Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+        Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
+        
+        if(ganar){
+            JOptionPane.showMessageDialog(null, playerEnTurno.usuario +  " VENCIO A " + playerNoEnTurno.usuario + " FELICIDADES HAS GANADO 3 PUNTOS!!!",
+                    "**Fin de Partida**", JOptionPane.INFORMATION_MESSAGE);
+            playerEnTurno.logUsuarioActual.log = "->" + playerEnTurno.usuario + " ha ganado porque su " + pieza.getTipoPieza() + " se comio al general de " + 
+            playerNoEnTurno.usuario;
+            manejoLogs.agregarLogFinal(playerEnTurno.logUsuarioActual, playerEnTurno);
+            
+            playerNoEnTurno.logUsuarioActual.log = "->" + playerNoEnTurno.usuario + " ha sido vencido porque " + playerEnTurno.usuario + " se comio su general ";
+            manejoLogs.agregarLogFinal(playerNoEnTurno.logUsuarioActual, playerNoEnTurno);
+            
+            if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
+            manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
+            XianquiVer1.player1.puntos+= 3;
+            XianquiVer1.player1.partidasGanadas+=1;
+            
+            XianquiVer1.player2.partidasPerdidas+=1;
+            }
+            else{
+            manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
+            XianquiVer1.player2.puntos+= 3;
+            XianquiVer1.player2.partidasGanadas+=1;
+            
+            XianquiVer1.player1.partidasPerdidas+=1;
+            XianquiVer1.player2=null;
+            }
+        }
+        return ganar;
+    }
+ 
+    public static void retirar(){
+        Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+        Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
+        
+        JOptionPane.showMessageDialog(null, playerEnTurno.usuario +  " SE HA RETIRADO, FELICIDADES " + playerNoEnTurno.usuario + " HAS GANADO 3 PUNTOS!!!",
+                    "**Fin de Partida**", JOptionPane.INFORMATION_MESSAGE);
+        
+        playerEnTurno.logUsuarioActual.log = "->" + playerEnTurno.usuario + " ha perdido contra " + playerNoEnTurno.usuario + " al retirarse";
+        manejoLogs.agregarLogFinal(playerEnTurno.logUsuarioActual, playerEnTurno);
+        playerEnTurno.partidasPerdidas+=1;
+
+        playerNoEnTurno.logUsuarioActual.log = "->" + playerNoEnTurno.usuario + " ha ganado porque " + playerEnTurno.usuario + " se retiro de la partida ";
+        manejoLogs.agregarLogFinal(playerNoEnTurno.logUsuarioActual, playerNoEnTurno);
+        playerNoEnTurno.partidasGanadas+=1;
+        playerNoEnTurno.puntos+=3;
+        
+        XianquiVer1.player2 =null;
+        
+        Tablero.panelContenedor.removeAll();
+        Tablero.panelGestionJuego.removeAll();
+        Tablero.panelJuego.removeAll();
+        Tablero.panelLetras.removeAll();
+        Tablero.panelNumeros.removeAll();
+        Tablero.panelTablero.removeAll();
+        Tablero.frameTablero.setVisible(false);
+        gui.menuPrincipal();
+        Gui.panelPrincipal.setVisible(true);
+            
     }
     }
     

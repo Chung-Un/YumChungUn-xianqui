@@ -155,7 +155,7 @@ public class funcionesGUI extends Gui {
            });
        
        logs.addActionListener(e ->{
-              
+              manejoPlayers.mostrarLogs();
            });
    }  
 

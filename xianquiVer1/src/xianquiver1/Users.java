@@ -16,20 +16,19 @@ public class Users {
     String usuario, password;
     Logs[] logsUsuario = new Logs[100];
     Logs logUsuarioActual;
+    Logs logsFinalesUsuario[] = new Logs[100];
     int puntos,partidasGanadas,partidasEmpatadas,partidasPerdidas;
     boolean activo;
     Calendar fecha;
     Date fechaIngreso;
-    int numLogsUser;
+    int numLogsUser,numLogsFinalesUser;
 
  
     public Users(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
         this.puntos = 0;
-        this.partidasUsuario = partidasUsuario;
         this.logUsuarioActual = new Logs("");
-        this.logsUsuario = logsUsuario ;
         this.partidasEmpatadas=0;
         this.partidasGanadas=0;
         this.partidasPerdidas=0;
@@ -37,6 +36,7 @@ public class Users {
         fecha = Calendar.getInstance();
         fechaIngreso = fecha.getTime();
         this.numLogsUser=0;
+        this.numLogsFinalesUser=0;
     }
 
    

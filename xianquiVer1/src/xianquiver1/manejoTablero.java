@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author chung
  */
 public class manejoTablero {
+    static Gui gui = new Gui();
     
     public static String piezaAColocar(int fila,int col){
     
@@ -252,6 +253,20 @@ public class manejoTablero {
                         return;
                     } else {
                         pieza.comer(pieza, piezaEnemiga);
+                            if(manejoPartidas.ganar(pieza, piezaEnemiga)){
+                            
+                                Tablero.panelContenedor.removeAll();
+                                Tablero.panelGestionJuego.removeAll();
+                                Tablero.panelJuego.removeAll();
+                                Tablero.panelLetras.removeAll();
+                                Tablero.panelNumeros.removeAll();
+                                Tablero.panelTablero.removeAll();
+                                Tablero.frameTablero.setVisible(false);
+                                gui.menuPrincipal();
+                                Gui.panelPrincipal.setVisible(true);                           
+                                return;
+                        }
+                        
                     }
                 }
 

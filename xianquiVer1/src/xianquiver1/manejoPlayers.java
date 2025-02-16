@@ -4,6 +4,7 @@
  */
 package xianquiver1;
 
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 
@@ -18,7 +19,7 @@ static int numJugadores=0;
     @Override
     public void crear(Users user) {
         if (numJugadores>=players.length){
-            resize();}
+            resize(players);}
         else{
             players[numJugadores] = user;
             System.out.println("usuario creado:" + user.usuario);
@@ -39,21 +40,24 @@ static int numJugadores=0;
     }
 }
     
-    public void resize(){
-        Users[] playersResized = new Users[players.length*2];
-        System.arraycopy(players, 0, playersResized, 0, players.length);
-        players = playersResized;
+    public static Users buscarPlayerPorUsuario(String nombreUsuario){
+        return buscarPlayerPorUsuario(nombreUsuario,0);
     }
     
-    public static Users buscarPlayerPorUsuario(String nombreUsuario){
-        for (int index=0; index< numJugadores; index++){
-            if(players[index]!=null && players[index].usuario.equals(nombreUsuario) ){
-            System.out.println("usuario encontrado: " + nombreUsuario);
-            return players[index];
-            }
+    private static Users buscarPlayerPorUsuario(String nombreUsuario, int index){//funcion recursiva
+        if(index>= numJugadores){
+            return null;//caso base
         }
-        return null;
+        if (players[index] != null && players[index].usuario.equals(nombreUsuario)) {
+        System.out.println("usuario encontrado: " + nombreUsuario);
+        return players[index]; 
     }
+
+    return buscarPlayerPorUsuario(nombreUsuario, index + 1); 
+    }
+    
+    
+    
     
     public static  boolean loginPosible(){
     
@@ -72,17 +76,10 @@ static int numJugadores=0;
        if (player == null){
        return null;
        }
-       else{
-           boolean passwordCorrecta = verificarPassword(player,password);
-           if(passwordCorrecta){
-               JOptionPane.showMessageDialog(null, "Bienvenido " + player.usuario, "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-               return player;
-           }
-           else{
-               JOptionPane.showMessageDialog(null, "Password Incorrecta, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
-               return null;
-           }
-      }
+       
+       boolean passwordCorrecta = verificarPassword(player, password);
+       return passwordCorrecta ? player : null; 
+      
       }  
     
     public static boolean verificarLongitudPassword(String password){
@@ -164,20 +161,53 @@ static int numJugadores=0;
         
     }
     
-    public static void ranking(){}
+    public static void mostrarLogs(){
+    StringBuilder logsTexto = new StringBuilder();
+           for (int i = 0; i < XianquiVer1.player1.numLogsFinalesUser; i++) {
+           logsTexto.append(XianquiVer1.player1.logsFinalesUsuario[i].toString()).append("\n");
+           }
+            JOptionPane.showMessageDialog(null, logsTexto.toString(), "Historial de Logs", JOptionPane.INFORMATION_MESSAGE);
+    }
     
-   
+    public static void jugadoresPorPuntos(int n) { //funcion recursiva
+        if (n <= 1) {
+            return; //caso base
+        }
+
+        jugadoresPorPuntos(n - 1);
+
+        Users temp = players[n - 1];
+        int j = n - 2;
+
+        while (j >= 0 && players[j].puntos < temp.puntos) {
+            players[j + 1] = players[j];
+            j--;
+        }
+        players[j + 1] = temp;
+    }
+
+    public static void ranking(){
+     jugadoresPorPuntos(numJugadores);
+     StringBuilder ranking = new StringBuilder("Xianqui Ranking");
+        for (int i = 0; i < numJugadores; i++) {
+            String ind ="\n" + (i + 1) + ". " + players[i].usuario + " - Puntos: " + players[i].puntos;
+            ranking.append(ind );
+        }
+        JOptionPane.showMessageDialog(null, ranking, "Ranking",JOptionPane.INFORMATION_MESSAGE);
+
+    }
     
-//    private void resizeLogsUsuario(Users user) {
-//        Logs[] logs = new Logs[user.logsUsuario.length * 2];
-//        System.arraycopy(user.logsUsuario, 0, logs, 0, user.logsUsuario.length);
-//        user.logsUsuario = logs;
-//}
+    
 
     @Override
     public void resize(Users[] item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    Users[] playersResized = new Users[players.length*2];
+        System.arraycopy(players, 0, playersResized, 0, players.length);
+        players = playersResized;   
     }
+    
+
+ 
     
     
 }

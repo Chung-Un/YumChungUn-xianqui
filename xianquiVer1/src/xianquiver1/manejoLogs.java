@@ -17,15 +17,18 @@ public class manejoLogs implements Almacenamiento<Logs>{
 
     @Override
     public void crear(Logs log) {
-//        [numJugadores] = user;
-//            System.out.println("usuario creado:" + user.usuario);
-//            numJugadores++;
+       
     }
 
     public static void agregarLog(Logs log, Users player){
         player.logsUsuario[player.numLogsUser] = log;
         System.out.println("log agregado");
         player.numLogsUser++;
+    }
+    
+    public static void agregarLogFinal(Logs log,Users player){
+        player.logsFinalesUsuario[player.numLogsFinalesUser] = log;
+        player.numLogsFinalesUser++;
     }
     @Override
     public void borrar(Logs item) {
@@ -36,5 +39,7 @@ public class manejoLogs implements Almacenamiento<Logs>{
     public void resize(Logs[] item) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+   
     
 }

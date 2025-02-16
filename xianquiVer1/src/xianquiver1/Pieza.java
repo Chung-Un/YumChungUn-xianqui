@@ -14,6 +14,7 @@ public abstract class Pieza extends JButton{
     static Pieza[][] piezasTablero = new Pieza[11][9];
     protected String color;
     static int numPiezas=0;
+
     
     public Pieza(String color){
     this.color = color;
@@ -39,7 +40,8 @@ public abstract class Pieza extends JButton{
         }
     }
     }
- 
+    
+    
     
    
 }

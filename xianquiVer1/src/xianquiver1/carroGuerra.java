@@ -116,13 +116,12 @@ public class carroGuerra extends Pieza {
         }
         else{
             piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
-                    
+            
             Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
             playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
                     piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
+            
             
             if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
                 Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
