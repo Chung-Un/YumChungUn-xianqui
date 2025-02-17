@@ -17,7 +17,7 @@ public class Users {
     Logs[] logsUsuario = new Logs[100];
     Logs logUsuarioActual;
     Logs logsFinalesUsuario[] = new Logs[100];
-    int puntos,partidasGanadas,partidasEmpatadas,partidasPerdidas;
+    int puntos,partidasGanadas,partidasPerdidas;
     boolean activo;
     Calendar fecha;
     Date fechaIngreso;
@@ -29,7 +29,6 @@ public class Users {
         this.password = password;
         this.puntos = 0;
         this.logUsuarioActual = new Logs("");
-        this.partidasEmpatadas=0;
         this.partidasGanadas=0;
         this.partidasPerdidas=0;
         activo= true;

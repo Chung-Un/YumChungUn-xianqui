@@ -4,7 +4,6 @@
  */
 package xianquiver1;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 
@@ -22,19 +21,16 @@ static int numJugadores=0;
             resize(players);}
         else{
             players[numJugadores] = user;
-            System.out.println("usuario creado:" + user.usuario);
             numJugadores++;
         }
     }
 
-    @Override
     public void borrar(Users user) {
         for (int index = 0; index < numJugadores; index++) {
             if (players[index] != null && players[index].usuario.equals(user.usuario)) {
                 players[index] = players[numJugadores - 1];
                 players[numJugadores - 1] = null;
                 numJugadores--;
-                System.out.println("jugador eliminado: " + user.usuario);
             break;
         }
     }
@@ -49,7 +45,6 @@ static int numJugadores=0;
             return null;//caso base
         }
         if (players[index] != null && players[index].usuario.equals(nombreUsuario)) {
-        System.out.println("usuario encontrado: " + nombreUsuario);
         return players[index]; 
     }
 
@@ -82,17 +77,24 @@ static int numJugadores=0;
       
       }  
     
-    public static boolean verificarLongitudPassword(String password){
+    public static boolean verificarValidezPassword(String password){
     
-        if (password.length() == 5 ){
-        return true;
-        }
-        else{
-        
+        if ((password.length() == 5) && (recorrerPassword(password)) ){
+            return true;
+            }
         return false;
-        }      
+              
     }
     
+    public static boolean recorrerPassword(String password){
+        for (int index=0; index< password.length(); index++){
+           if(password.charAt(index) == ' '){
+               JOptionPane.showMessageDialog(null, "Su password no puede contener espacios", "Error", JOptionPane.ERROR_MESSAGE);
+               return false;
+           }
+        }
+        return true;
+    }
     public static boolean verificarPassword( Users user,String password){
     
         if(user.password.equals(password)){
@@ -106,7 +108,7 @@ static int numJugadores=0;
         Users player = buscarPlayerPorUsuario(usuario);
         
         if (player == null){
-            boolean passwordValida = verificarLongitudPassword(password);
+            boolean passwordValida = verificarValidezPassword(password);
             if(passwordValida == true){
                 player = new Users(usuario,password);
                 crear(player);
@@ -119,43 +121,47 @@ static int numJugadores=0;
             
         }
         else{
-            return player;
+            return null;
         }
     return player;
     }
     
     public static void mostrarInformacion(Users player){
         JOptionPane.showMessageDialog(null, "Nombre de usuario: " + player.usuario + "\nPuntos: " + player.puntos + "\nFecha de ingreso: " + player.fechaIngreso 
-           + "\nPartidas ganadas: " + String.valueOf(player.partidasGanadas) + "\nPartidas perdidas: " + String.valueOf(player.partidasPerdidas) + "\nPartidas empatadas: "+
-                String.valueOf(player.partidasEmpatadas));
-        
+           + "\nPartidas ganadas: " + String.valueOf(player.partidasGanadas) + "\nPartidas perdidas: " + String.valueOf(player.partidasPerdidas) + "\nActivo: si") ;
     }
     
-    public static void cambiarPassword (Users player, String passwordVieja, String passwordNueva){
+    public static boolean cambiarPassword (Users player, String passwordVieja, String passwordNueva){
     
-        if(verificarPassword(player,passwordVieja) && verificarLongitudPassword(passwordNueva)){
+        if(verificarPassword(player,passwordVieja) && verificarValidezPassword(passwordNueva)){
         player.setPassword(passwordNueva);
         JOptionPane.showMessageDialog(null, "Password cambiada exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        return true;
         }
         else if(!verificarPassword(player,passwordVieja)){
         JOptionPane.showMessageDialog(null, "Password actual incorrecta, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
         }
         else if(passwordVieja.equals(passwordNueva)){
         JOptionPane.showMessageDialog(null,"Password nueva y antigua no pueden ser las mismas", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
         }
+        return true;
         }
 
     public void eliminarCuenta(Users player){
     int confirmacion= JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar su cuenta?", "Confirmacion", JOptionPane.YES_NO_OPTION );
     
-    
-    
+   
        if(confirmacion == JOptionPane.YES_OPTION){
                 String password = JOptionPane.showInputDialog("Ingrese su password actual: ");
                 
                 if(verificarPassword(player,password)){
                     borrar(player);
                     JOptionPane.showMessageDialog(null, "Cuenta borrada con exito", "Cuenta eliminada", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                JOptionPane.showMessageDialog(null, "No se pudo borrar la cuenta", "Error", JOptionPane.INFORMATION_MESSAGE);
                 }
                 }
         

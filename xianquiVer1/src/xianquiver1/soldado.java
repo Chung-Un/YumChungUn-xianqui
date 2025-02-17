@@ -10,7 +10,6 @@ import javax.swing.JButton;
  *
  * @author chung
  */
-import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -22,7 +21,7 @@ public class soldado extends Pieza{
     
     public soldado(String color){
     super(color);
-    movimientosParaRio=1;
+    movimientosParaRio=2;
     }
 
     @Override
@@ -43,15 +42,15 @@ public class soldado extends Pieza{
        if(pieza.color.equals("rojo")){
         if(difFila == -1 && difCol ==0 &&(movimientosParaRio >=1)){
 
-          System.out.println("no ha pasado el rio");
           movimientosParaRio--;
           return true;
          }
 
         else if ((filaInicial==4 && fila==6) || (filaInicial == 6 && fila == 4)){
             if( difCol==0){
-                System.out.println("quiere pasar el rio");
+                movimientosParaRio--;
                 return true;
+                
             }
             else{
             return false;
@@ -59,11 +58,9 @@ public class soldado extends Pieza{
         }
 
         else if(movimientosParaRio==0 && difFila ==-1 && difCol == 0){
-            System.out.println("ya paso el rio");
             return true;
         }
         else if(movimientosParaRio==0 && difFila==0 && difCol==1){
-            System.out.println("ya paso el rio");
             return true;
         }
         else{
@@ -75,14 +72,13 @@ public class soldado extends Pieza{
        else if(pieza.color.equals("negro")){
         if(difFila == 1 && difCol ==0 &&(movimientosParaRio >=1)){
 
-           System.out.println("no ha pasado el rio");
            movimientosParaRio--;
            return true;
           }
 
          else if ((filaInicial==4 && fila==6) || (filaInicial == 4 && fila == 6)){
              if( difCol==0){
-                 System.out.println("quiere pasar el rio");
+                 movimientosParaRio--;
                  return true;
              }
              else{
@@ -91,11 +87,9 @@ public class soldado extends Pieza{
          }
 
          else if(movimientosParaRio==0 && difFila ==1 && difCol == 0){
-             System.out.println("ya paso el rio");
              return true;
          }
          else if(movimientosParaRio==0 && difFila==0 && difCol==1){
-             System.out.println("ya paso el rio");
              return true;
          }
          else{
@@ -104,7 +98,6 @@ public class soldado extends Pieza{
          }  
        }
        else{
-        System.out.println("no cumplio ningun requisito");
         return false;
        }
        }
@@ -157,8 +150,6 @@ public class soldado extends Pieza{
         }
         else{
             piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
                     
             Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();

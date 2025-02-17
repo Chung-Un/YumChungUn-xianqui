@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ import javax.swing.JOptionPane;
 public class manejoTablero {
     static Gui gui = new Gui();
     
+  
     public static String piezaAColocar(int fila,int col){
     
         switch (fila) {
@@ -219,7 +219,6 @@ public class manejoTablero {
 
     public static void botonPresionado(int f, int c) {
     if (Tablero.filaOrigen == -1 && Tablero.columnaOrigen == -1) {
-        // primera vez presionado
         if (Tablero.botonesTablero[f][c].getIcon() == null) {
             JOptionPane.showMessageDialog(null, "La celda presionada no contiene ninguna pieza", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -232,7 +231,6 @@ public class manejoTablero {
                 (Tablero.piezaSeleccionada.getColor().equals("negro") && !XianquiVer1.partidaActual.turno)) {
                 
                 Tablero.botonesTablero[f][c].setBackground(new Color(168, 156, 41));
-                System.out.println("Botón seleccionado: fila " + (Tablero.filaOrigen + 1) + ", columna " + (Tablero.columnaOrigen + 1));
             } else {
                 JOptionPane.showMessageDialog(null, "Pieza seleccionada no es suya", "Error", JOptionPane.ERROR_MESSAGE);
                 Tablero.filaOrigen = -1;
@@ -240,59 +238,56 @@ public class manejoTablero {
             }
         }
     } else {
-        // segunda vez presionado
         if (Tablero.piezaSeleccionada != null) {
             Pieza pieza = Tablero.piezaSeleccionada;
-
             if (pieza.movimientoValido(Tablero.filaOrigen, Tablero.columnaOrigen, f, c, pieza)) {
                 Pieza piezaEnemiga = Pieza.piezasTablero[f][c];
 
+                if (piezaEnemiga != null && pieza.getColor().equals(piezaEnemiga.getColor())) {
+                    JOptionPane.showMessageDialog(null, "No puedes comer tu propia pieza", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Pieza.piezasTablero[f][c] = pieza;
+                Pieza.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = null;
+                
+                if (visionDirectaGenerales()) {
+                    Pieza.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = pieza;
+                    Pieza.piezasTablero[f][c] = piezaEnemiga;
+                    JOptionPane.showMessageDialog(null, "Los generales tienen visión directa", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 if (piezaEnemiga != null) {
-                    if (pieza.getColor().equals(piezaEnemiga.getColor())) {
-                        JOptionPane.showMessageDialog(null, "No puedes comer tu propia pieza", "Error", JOptionPane.ERROR_MESSAGE);
+                    pieza.comer(pieza, piezaEnemiga);
+                    if (manejoPartidas.ganar(pieza, piezaEnemiga)) {
+                        Tablero.panelContenedor.removeAll();
+                        Tablero.panelGestionJuego.removeAll();
+                        Tablero.panelJuego.removeAll();
+                        Tablero.panelLetras.removeAll();
+                        Tablero.panelNumeros.removeAll();
+                        Tablero.panelTablero.removeAll();
+                        Tablero.frameTablero.setVisible(false);
+                        Gui.menuPrincipal();
+                        Gui.panelPrincipal.setVisible(true);
                         return;
-                    } else {
-                        pieza.comer(pieza, piezaEnemiga);
-                            if(manejoPartidas.ganar(pieza, piezaEnemiga)){
-                            
-                                Tablero.panelContenedor.removeAll();
-                                Tablero.panelGestionJuego.removeAll();
-                                Tablero.panelJuego.removeAll();
-                                Tablero.panelLetras.removeAll();
-                                Tablero.panelNumeros.removeAll();
-                                Tablero.panelTablero.removeAll();
-                                Tablero.frameTablero.setVisible(false);
-                                gui.menuPrincipal();
-                                Gui.panelPrincipal.setVisible(true);                           
-                                return;
-                        }
-                        
                     }
                 }
 
                 Tablero.botonesTablero[f][c].setIcon(Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].getIcon());
                 Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setIcon(null);
 
-                Pieza.piezasTablero[f][c] = pieza;
-                Pieza.piezasTablero[Tablero.filaOrigen][Tablero.columnaOrigen] = null;
-
-                System.out.println("Pieza movida a fila: " + (f + 1) + ", columna: " + (c + 1));
-
-
                 manejoPartidas.cambiarTurnos(XianquiVer1.partidaActual);
-
-                if (visionDirectaGenerales()) {
-                    JOptionPane.showMessageDialog(null, "¡Los generales tienen visión directa!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
             }
-            Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setBackground(calcularColor(Tablero.filaOrigen, Tablero.columnaOrigen));
 
+            Tablero.botonesTablero[Tablero.filaOrigen][Tablero.columnaOrigen].setBackground(calcularColor(Tablero.filaOrigen, Tablero.columnaOrigen));
         }
 
         Tablero.filaOrigen = -1;
         Tablero.columnaOrigen = -1;
     }
 }
+
 
     public static Color calcularColor(int fila, int columna){
 
@@ -306,11 +301,9 @@ public class manejoTablero {
 
         if(filas==11 || filas ==10 || filas == 9 || filas ==1|| filas == 2 || filas ==3){
                 if (columnas==4 || columnas ==6 ||columnas ==5 ){
-                     System.out.println("Resultado de esPalacio: " + "false");
                     return true;
             }
                 else{
-                    System.out.println("Fuera de los límites del tablero.");
                     return false;
                 }
                 
@@ -338,39 +331,47 @@ public class manejoTablero {
             Tablero.panelNumeros.add(labelNumeros);
         }}
     
-    public static boolean visionDirectaGenerales(){
-    int filaGeneral1=-1, filaGeneral2=-1;
-    int colGeneral=-1;
-    
-    for(int fila=0; fila<11 ; fila++ ){
-        for(int col=0; col<9;col++){
-            Pieza piezaTablero = Pieza.piezasTablero[fila][col];
-            
-            if(piezaTablero!=null && (piezaTablero.getTipoPieza().equals("general"))){
-                if (filaGeneral1==-1){
-                    filaGeneral1=fila;
-                    colGeneral=col;
+  public static boolean visionDirectaGenerales() {
+    int filaGeneral1 = -1, colGeneral1 = -1;
+    int filaGeneral2 = -1, colGeneral2 = -1;
+
+    for (int fila = 0; fila < 11; fila++) {
+        for (int columna = 0; columna < 9; columna++) {
+            Pieza pieza = Pieza.piezasTablero[fila][columna];
+            if (pieza != null && pieza.getTipoPieza().equals("general")) {
+                
+                if (filaGeneral1 == -1) { 
+                    filaGeneral1 = fila;
+                    colGeneral1 = columna;
+                } else if(filaGeneral2==-1){
+                    filaGeneral2 = fila;
+                    colGeneral2 = columna;
                 }
                 else{
-                    filaGeneral2=fila;
-                    if(colGeneral!=col){
-                        return false;
-                    }
                 }
             }
         }
     }
-    
-    int filaInicio = Math.min(filaGeneral1, filaGeneral2)+1;
-    int filaFinal = Math.max(filaGeneral1, filaGeneral2);
-    
-    for(int fila = filaInicio ; fila<filaFinal; fila++){
-        if(Pieza.piezasTablero[fila][colGeneral] !=null){
+
+    if (filaGeneral1 == -1 || filaGeneral2 == -1) {
         return false;
+    }
+
+    if (colGeneral1 == colGeneral2) {
+
+        int filaMenor = Math.min(filaGeneral1, filaGeneral2);
+        int filaMayor = Math.max(filaGeneral1, filaGeneral2);
+        
+        for (int filaUsar = filaMenor + 1; filaUsar < filaMayor; filaUsar++) {
+            if (Pieza.piezasTablero[filaUsar][colGeneral1] != null) {
+                return false;
+            }
         }
+        
+        return true;
     }
-   
-    return true;
-            
-    }
+
+    return false;
+}
+
 }

@@ -10,9 +10,12 @@ import javax.swing.*;
 
 public  class Gui {
     
-    manejoPlayers manejoPlayers = new manejoPlayers();
+    public static manejoPlayers manejoPlayers = new manejoPlayers();
+    public static manejoPartidas manejoPartidas = new manejoPartidas();
 
-    public void pantallaInicio(){
+    public static void pantallaInicio(){
+        frameInicio.getContentPane().removeAll();
+        
         frameInicio.setTitle("Xianqui");
         frameInicio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frameInicio.setSize(500,500);
@@ -26,7 +29,6 @@ public  class Gui {
         posicion.gridwidth = 2;
         posicion.fill = GridBagConstraints.HORIZONTAL;
         panelInicio.add(labelInicio, posicion);
-        
        
         btnLogin = funcionesGUI.hacerbtn(btnLogin,"Login");
         funcionesGUI.posicion(posicion, 0, 1);
@@ -36,7 +38,6 @@ public  class Gui {
         funcionesGUI.posicion(posicion, 0, 2);
         panelInicio.add(btnCrear, posicion);
 
-       
 
         //LOGIN
           panelLogin = funcionesGUI.hacerPanel(panelLogin, labelLogin, "Login");
@@ -57,40 +58,7 @@ public  class Gui {
           btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                funcionesGUI.posicion(posicion, 0, 0);
-                posicion.gridwidth = 3;
-                posicion.anchor = GridBagConstraints.CENTER;
-                panelLogin.add(labelLogin, posicion);
-
-                funcionesGUI.posicion(posicion, 0, 1);
-                posicion.gridwidth = 1;
-                panelLogin.add(labelUsuarioLogin, posicion);
-
-                funcionesGUI.posicion(posicion, 1, 1);
-                posicion.fill = GridBagConstraints.HORIZONTAL;
-                posicion.weightx = 1.0;
-                panelLogin.add(fieldUsuarioLogin,posicion);
-
-                funcionesGUI.posicion(posicion, 0, 2);
-                posicion.gridwidth = 1;
-                panelLogin.add(labelPasswordLogin,posicion);
-
-                funcionesGUI.posicion(posicion, 1, 2);
-                posicion.fill = GridBagConstraints.HORIZONTAL;
-                posicion.weightx = 1.0;
-                panelLogin.add(fieldPasswordLogin,posicion);
-
-                funcionesGUI.posicion(posicion, 0,3);
-                posicion.fill = GridBagConstraints.HORIZONTAL;
-                posicion.weightx = 1.0;
-                panelLogin.add(btnLoginPlayer,posicion);
-
-                funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
-                funcionesGUI.posicion(posicion, 1,3);
-                posicion.fill = GridBagConstraints.HORIZONTAL;
-                posicion.weightx = 1.0;
-                panelLogin.add(btnRegresar,posicion);
+               funcionesGUI.configurarPanelLogin();
 
                 boolean loginPosible = manejoPlayers.loginPosible();
                 
@@ -120,8 +88,9 @@ public  class Gui {
                 
                 Users loginExitoso= manejoPlayers.verificarLogin(usuario, password);
                 
-                if (loginExitoso.usuario==null){
+                if (loginExitoso==null){
                 JOptionPane.showMessageDialog(null, "Usuario no existe, intente de nuevo.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
                 }
 
                 XianquiVer1.player1 = loginExitoso;
@@ -206,10 +175,13 @@ public  class Gui {
                 XianquiVer1.player1 = manejoPlayers.verificarCrearPlayer(usuario, password);
 
                 if (XianquiVer1.player1 != null) {
-                    if(XianquiVer1.player1.usuario.equals("FALSOFALSO")) {
-                    JOptionPane.showMessageDialog(null, "Password no cumple con la restriccion de caracteres (5), intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+                    if(usuario.equals("")){
+                    JOptionPane.showMessageDialog(null, "Llene las casillas indicadas", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if(XianquiVer1.player1.usuario.equals("FALSOFALSO")) {
                     }
                     else{
+                        
                     JOptionPane.showMessageDialog(null, "Creacion de perfil exitosa", "Nuevo jugador", JOptionPane.INFORMATION_MESSAGE);
                     panelCrear.removeAll();
                     panelCrear.remove(btnCrearPlayer);
@@ -217,7 +189,9 @@ public  class Gui {
                     menuPrincipal();
                     return;
                 } }
+                
                 else {JOptionPane.showMessageDialog(null, "Usuario ya existe, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);}
+                
             }
         });
 
@@ -237,10 +211,11 @@ public  class Gui {
             }
         });
 
+        panelInicio.setVisible(true);
         frameInicio.setVisible(true);
     }
     
-    public void menuPrincipal(){
+    public static void menuPrincipal(){
         
         framePrincipal.setTitle("Xianqui");
         framePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -294,6 +269,7 @@ public  class Gui {
                         XianquiVer1.player2 = playerContra;
                         JOptionPane.showMessageDialog(null, "Jugador seleccionado: " + XianquiVer1.player2.usuario, "Contrincante", JOptionPane.INFORMATION_MESSAGE);
                         XianquiVer1.partidaActual = new Partidas(XianquiVer1.player1,XianquiVer1.player2);
+                        manejoPartidas.crear(XianquiVer1.partidaActual);
                         panelJugar.removeAll();
                         panelJugar.setVisible(false);
                         framePrincipal.setVisible(false);
@@ -304,6 +280,7 @@ public  class Gui {
                 
             }
         });
+
         
         btnCuenta = funcionesGUI.hacerbtn(btnCuenta, "Mi cuenta");
         funcionesGUI.posicion(posicion, 0, 2);

@@ -10,7 +10,6 @@ import javax.swing.JButton;
  *
  * @author chung
  */
-import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -18,75 +17,41 @@ import javax.imageio.*;
 import javax.swing.*;
 
 public class canon extends Pieza{
-    boolean capturoPieza;
-    int vecesSaltadas;
-    
+    int filaInicial, colInicial, fila, col;
     public canon (String color){
     super(color);
-    capturoPieza=false;
-    vecesSaltadas=0;
+    
     }
 
     @Override
     String getTipoPieza() {
         return "canon";
     }
+@Override
+boolean movimientoValido(int filaInicial, int colInicial, int fila, int col, Pieza pieza) {
+    int difFila = Math.abs(fila - filaInicial);
+    int difCol = Math.abs(col - colInicial);
 
-    @Override
-    boolean movimientoValido(int filaInicial, int colInicial, int fila , int col , Pieza pieza) {
-        int difFila = Math.abs(fila-filaInicial);
-        int difCol = Math.abs(col - colInicial);
+    int piezasIntermedias = contarPiezasIntermedias(filaInicial, colInicial, fila, col);
+    if ((difFila > 0 && difCol == 0) || (difFila == 0 && difCol > 0)) {
+        Pieza piezaFinal = Pieza.piezasTablero[fila][col];
+
+        if (piezasIntermedias == 0 ) {
+            return true;
+        }
+
+        else if (piezasIntermedias == 1 ) {
+            return true;
+        }
         
-        if(fila==5){
-           JOptionPane.showMessageDialog(null, "Te vas ahogas..", "Error", JOptionPane.ERROR_MESSAGE);
-           return false;
-        }
-         else if ((difFila == 1 && difCol == 0) || (difFila == 0 && difCol == 1)) {
-        return true;
-        }
-        else if ((difFila > 0 && difCol == 0) || (difFila == 0 && difCol > 0)) {
-            int piezasIntermedias = 0;
-            int filaInicio, filaFinal, colInicio, colFinal;
 
-            if (difFila > 0) {
-                filaInicio = Math.min(filaInicial, fila) + 1;
-                filaFinal = Math.max(filaInicial, fila);
-                for (int f = filaInicio; f < filaFinal; f++) {
-                    if (Pieza.piezasTablero[f][col] != null) {
-                        piezasIntermedias++;
-                    }
-                }
-            }
-            
-        
-        else {
-                colInicio = Math.min(colInicial, col) + 1;
-                colFinal = Math.max(colInicial, col);
-                for (int c = colInicio; c < colFinal; c++) {
-                    if (Pieza.piezasTablero[fila][c] != null) {
-                        piezasIntermedias++;
-                    }
-                }
-            }
-             Pieza piezaFinal = Pieza.piezasTablero[fila][col];  
-
-            if (piezasIntermedias == 0 && piezaFinal == null) {
-                return true;
-            }
-            
-            if (piezasIntermedias == 1 && piezaFinal != null && !piezaFinal.getColor().equals(pieza.getColor())) {
-                return true;
-            }
-
-            JOptionPane.showMessageDialog(null, "Movimiento inválido para el cañón", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        JOptionPane.showMessageDialog(null, "Movimiento no válido", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
     }
-    
-   
+
+    JOptionPane.showMessageDialog(null, "Movimiento no valido", "Error", JOptionPane.ERROR_MESSAGE);
+    return false;
+}
+
+
 
     @Override
     void ponerImagen( JButton btn) {
@@ -96,7 +61,6 @@ public class canon extends Pieza{
         InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
         if (imgIcon == null) {
-            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
             return;
         }
 
@@ -114,7 +78,6 @@ public class canon extends Pieza{
         InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
         if (imgIcon == null) {
-            System.out.println("Error: No se encontro la imagen en (negro)" + ruta);
             return;
         }
 
@@ -130,32 +93,49 @@ public class canon extends Pieza{
 
     @Override
     void comer(Pieza piezaSeleccionada, Pieza piezaAComer) {
-        if(piezaAComer!=null){
-        if(piezaSeleccionada.getColor().equals(piezaAComer.getColor())){
-            return;
+        piezaAComer.borrarPieza(piezaAComer);
+       
+        Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
+        playerEnTurno.logUsuarioActual.log = "->" + piezaSeleccionada.getTipoPieza() + " de " +
+                playerEnTurno.usuario + " se comió un " + piezaAComer.getTipoPieza() + " de " +
+                manejoPartidas.getPlayerNoEnTurno().usuario;
+
+        if (playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)) {
+            Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
+            manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
+        } else {
+            Tablero.fieldUser2.setText(playerEnTurno.logUsuarioActual.log);
+            manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
         }
-        else{
-            piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
-                    
-            Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
-            Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
-            playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
-            
-            if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
-                Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);
-                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player1);
-            }
-            else{
-                Tablero.fieldUser2.setText(playerEnTurno.logUsuarioActual.log);
-                manejoLogs.agregarLog(playerEnTurno.logUsuarioActual, XianquiVer1.player2);
+}
+
+int contarPiezasIntermedias(int filaInicial, int colInicial, int filaFinal, int colFinal) {
+    int piezasIntermedias = 0;
+
+    if (filaInicial == filaFinal) {
+        int colInicio = Math.min(colInicial, colFinal) + 1; 
+        int colFin = Math.max(colInicial, colFinal); 
+
+        for (int c = colInicio; c < colFin; c++) {
+            if (Pieza.piezasTablero[filaInicial][c] != null) {
+                piezasIntermedias++;
             }
         }
     }
-        
+    else if (colInicial == colFinal) {
+        int filaInicio = Math.min(filaInicial, filaFinal) + 1; 
+        int filaFin = Math.max(filaInicial, filaFinal); 
+
+        for (int f = filaInicio; f < filaFin; f++) {
+            if (Pieza.piezasTablero[f][colInicial] != null) {
+                piezasIntermedias++;
+            }
         }
+    }
+
+   return piezasIntermedias;
+}
+
        
     
     

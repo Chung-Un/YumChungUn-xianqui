@@ -35,11 +35,11 @@ public abstract class Pieza extends JButton{
             if (piezasTablero[fila][col]== piezaABorrar) {
                 piezasTablero[fila][col] = null;
                 numPiezas--;
-                System.out.println("Pieza eliminada: " + piezaABorrar.getTipoPieza());
                 return;
         }
     }
     }
+    
     
     
     

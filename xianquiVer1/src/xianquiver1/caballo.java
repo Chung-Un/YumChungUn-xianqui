@@ -10,7 +10,6 @@ import javax.swing.JButton;
  *
  * @author chung
  */
-import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -47,11 +46,19 @@ public class caballo extends Pieza{
                 JOptionPane.showMessageDialog(null, "Punto de pivote no esta vacio");
                 return false;
             }
+            
             return true;
         }
-        else if(fila==5){
-            JOptionPane.showConfirmDialog(null, "Te vas a ahogar", "Error", JOptionPane.ERROR_MESSAGE);
+        else if (difFila == 3 && difCol == 1) {
+        int filaIntermedia1 = (filaInicial+fila) / 2; 
+        int filaIntermedia2 = (filaInicial+filaIntermedia1) / 2;
+
+        if (Pieza.piezasTablero[5][filaIntermedia1] == null && Pieza.piezasTablero[5][filaIntermedia2] == null) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No puedes moverte porque el río interrumpe el paso", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
         }
         else{
             JOptionPane.showMessageDialog(null, "Movmiento no valido" ,"Error", JOptionPane.ERROR_MESSAGE);
@@ -67,7 +74,6 @@ public class caballo extends Pieza{
         InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
         if (imgIcon == null) {
-            System.out.println("Error: No se encontró la imagen en (rojo)" + ruta);
             return;
         }
 
@@ -76,7 +82,7 @@ public class caballo extends Pieza{
         btn.setIcon(new ImageIcon(imgResize));
 
     } catch (IOException ex) {
-        System.out.println("Error al cargar la imagen del caballo rojo.");
+         System.out.println("Imagen no se encontro");
     }}
 
     else{
@@ -85,7 +91,6 @@ public class caballo extends Pieza{
         InputStream imgIcon = getClass().getResourceAsStream(ruta);
 
         if (imgIcon == null) {
-            System.out.println("Error: No se encontró la imagen en (negro)" + ruta);
             return;
         }
 
@@ -94,7 +99,6 @@ public class caballo extends Pieza{
         btn.setIcon(new ImageIcon(imgResize));
 
     } catch (IOException ex) {
-        System.out.println("Error al cargar la imagen del caballo negro.");
     }}
 
     }
@@ -106,9 +110,7 @@ public class caballo extends Pieza{
         }
         else{
             piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
-                    
+                   
             Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
             playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +

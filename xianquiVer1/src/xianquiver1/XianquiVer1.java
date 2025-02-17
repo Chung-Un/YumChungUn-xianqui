@@ -16,11 +16,12 @@ public class XianquiVer1 {
     public static Users player1;
     public static Users player2;
     public static Partidas partidaActual;
+
     
     public static void main(String[] args) {
-        Gui gui = new Gui();
         
-        gui.pantallaInicio();
+        Gui.pantallaInicio();
+
 
     }
     

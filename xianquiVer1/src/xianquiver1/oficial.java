@@ -10,7 +10,6 @@ import javax.swing.JButton;
  *
  * @author chung
  */
-import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -89,8 +88,7 @@ public class oficial extends Pieza {
         }
         else{
             piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-                    piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
+
                     
             Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();

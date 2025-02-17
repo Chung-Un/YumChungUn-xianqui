@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xianquiver1;
-
-import com.sun.tools.javac.Main;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -121,7 +119,6 @@ public class carroGuerra extends Pieza {
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
             playerEnTurno.logUsuarioActual.log= "->" +piezaSeleccionada.getTipoPieza() + " de " + playerEnTurno.usuario + " se comio un " +
                     piezaAComer.getTipoPieza() + " de " + playerNoEnTurno.usuario;
-            
             
             if(playerEnTurno.usuario.equals(XianquiVer1.player1.usuario)){
                 Tablero.fieldUser1.setText(playerEnTurno.logUsuarioActual.log);

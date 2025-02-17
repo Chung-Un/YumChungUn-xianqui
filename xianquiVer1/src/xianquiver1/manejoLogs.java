@@ -10,19 +10,22 @@ package xianquiver1;
  */
 public class manejoLogs implements Almacenamiento<Logs>{
     static Logs[] logs = new Logs[100];
+    int numLogs=0;
     
-    public void resize() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     @Override
     public void crear(Logs log) {
+        if (numLogs>=logs.length){
+            resize(logs);}
+        else{
+            logs[numLogs] = log;
+            numLogs++;
+        }
        
     }
 
     public static void agregarLog(Logs log, Users player){
         player.logsUsuario[player.numLogsUser] = log;
-        System.out.println("log agregado");
         player.numLogsUser++;
     }
     
@@ -30,15 +33,13 @@ public class manejoLogs implements Almacenamiento<Logs>{
         player.logsFinalesUsuario[player.numLogsFinalesUser] = log;
         player.numLogsFinalesUser++;
     }
-    @Override
-    public void borrar(Logs item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     @Override
     public void resize(Logs[] item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    Logs[] logsResized = new Logs[logs.length*2];
+        System.arraycopy(logs, 0, logsResized, 0, logs.length);
+        logs = logsResized;      }
     
    
     

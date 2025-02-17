@@ -11,6 +11,7 @@ import javax.swing.*;
 public class Tablero {
  
 public static void inicializarElementos(){
+
    frameTablero.setTitle("Xianqui - Partida");
     frameTablero.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frameTablero.setSize(1000,800);
@@ -31,11 +32,11 @@ public static void inicializarElementos(){
     panelTablero.setSize(700,800);
     panelTablero.setLayout(new GridLayout(11,9));
     
-     panelGestionJuego.setBackground(new Color(229, 32, 32));
+    panelGestionJuego.setBackground(new Color(229, 32, 32));
     panelGestionJuego.setPreferredSize(new Dimension (300,800));
     panelGestionJuego.setLayout(new GridLayout(7,1));
     
-     labelTitulo = funcionesGUI.hacerLabelTitulo(labelTitulo, "Xianqui");
+    labelTitulo = funcionesGUI.hacerLabelTitulo(labelTitulo, "Xianqui");
     labelTitulo.setForeground(new Color(249, 203, 67));
     
     labelTurnos = funcionesGUI.hacerLabel(labelTurnos, "Turno de: " + XianquiVer1.player1.usuario);
@@ -59,7 +60,7 @@ public static void inicializarElementos(){
     labelUser2.setHorizontalAlignment(JLabel.CENTER);
     labelUser2.setForeground(new Color(249, 203, 67));
     
-     fieldUser2.setText("");
+    fieldUser2.setText("");
     fieldUser2.setForeground(Color.WHITE);
     
     btnRetirar = funcionesGUI.hacerbtn(btnRetirar, "Retirarse");

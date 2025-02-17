@@ -116,29 +116,42 @@ public class funcionesGUI extends Gui {
        menuCuenta.add(cerrarCuenta);
        menuCuenta.add(verInfo);
        menuCuenta.show(frame, 200, 250);
+       
+       verInfo.addActionListener(e ->{
+       manejoPlayers.mostrarInformacion(XianquiVer1.player1);
+       
+       });
     
        cambiarPassword.addActionListener(e ->{
                String passwordActual = JOptionPane.showInputDialog("Ingrese su password actual: ");
                String passwordNueva = JOptionPane.showInputDialog("Ingrese su password nueva: ");
                
-               manejoPlayers.cambiarPassword(XianquiVer1.player1,passwordActual,passwordNueva);
+               boolean passwordCambiada = manejoPlayers.cambiarPassword(XianquiVer1.player1,passwordActual,passwordNueva);
+               
+               if (passwordCambiada){
+               XianquiVer1.player1=null;
+               frame.dispose(); 
+
+               frameInicio = new JFrame();
+               pantallaInicio(); 
+               frameInicio.setVisible(true);
+               }
            });
        
 
-       cerrarCuenta.addActionListener(e ->{
-               manejoPlayers.eliminarCuenta(XianquiVer1.player1);
-               panelPrincipal.setVisible(false);
-               frame.add(panelInicio);
-               frame.add(panelCrear);
-               frame.add(panelLogin);
-               panelInicio.setVisible(true);
-               frame.revalidate();
-               frame.repaint();
-           });
-       
-       verInfo.addActionListener(e ->{
-               manejoPlayers.mostrarInformacion(XianquiVer1.player1);
-           });
+       cerrarCuenta.addActionListener(e -> {
+        if (XianquiVer1.player1 != null) {
+        manejoPlayers.eliminarCuenta(XianquiVer1.player1);
+        XianquiVer1.player1 = null;
+    }
+
+    frame.dispose(); 
+
+    frameInicio = new JFrame();
+    pantallaInicio(); 
+    frameInicio.setVisible(true);
+    
+});
    }
 
    public static void mostrarMenuReportes(JFrame frame) {
@@ -158,7 +171,40 @@ public class funcionesGUI extends Gui {
               manejoPlayers.mostrarLogs();
            });
    }  
+    public static void configurarPanelLogin() {
+        panelLogin.removeAll(); 
 
+        funcionesGUI.posicion(posicion, 0, 0);
+        posicion.gridwidth = 3;
+        posicion.anchor = GridBagConstraints.CENTER;
+        panelLogin.add(labelLogin, posicion);
+
+        funcionesGUI.posicion(posicion, 0, 1);
+        posicion.gridwidth = 1;
+        panelLogin.add(labelUsuarioLogin, posicion);
+
+        funcionesGUI.posicion(posicion, 1, 1);
+        posicion.fill = GridBagConstraints.HORIZONTAL;
+        posicion.weightx = 1.0;
+        panelLogin.add(fieldUsuarioLogin, posicion);
+
+        funcionesGUI.posicion(posicion, 0, 2);
+        panelLogin.add(labelPasswordLogin, posicion);
+
+        funcionesGUI.posicion(posicion, 1, 2);
+        posicion.fill = GridBagConstraints.HORIZONTAL;
+        panelLogin.add(fieldPasswordLogin, posicion);
+
+        funcionesGUI.posicion(posicion, 0, 3);
+        panelLogin.add(btnLoginPlayer, posicion);
+
+        funcionesGUI.posicion(posicion, 1, 3);
+        panelLogin.add(btnRegresar, posicion);
+        funcionesGUI.regresar(btnRegresar, panelLogin, panelInicio);
+
+        panelLogin.revalidate();
+        panelLogin.repaint();
+    }
    
    public static void regresar (JButton btnRegresar, JPanel panelActual, JPanel panelVolver){
        

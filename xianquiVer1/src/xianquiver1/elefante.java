@@ -105,8 +105,6 @@ public class elefante extends Pieza {
         }
         else{
             piezaAComer.borrarPieza(piezaAComer);
-            System.out.println( piezaSeleccionada.getTipoPieza() + " de " +manejoPartidas.getPlayerEnTurno().usuario + "se comio un " +
-            piezaAComer.getTipoPieza() + " de " + manejoPartidas.getPlayerNoEnTurno().usuario);
                     
             Users playerEnTurno = manejoPartidas.getPlayerEnTurno();
             Users playerNoEnTurno = manejoPartidas.getPlayerNoEnTurno();
