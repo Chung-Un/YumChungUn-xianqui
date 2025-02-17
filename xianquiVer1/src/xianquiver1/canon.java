@@ -35,10 +35,10 @@ boolean movimientoValido(int filaInicial, int colInicial, int fila, int col, Pie
     int piezasIntermedias = contarPiezasIntermedias(filaInicial, colInicial, fila, col);
     if ((difFila > 0 && difCol == 0) || (difFila == 0 && difCol > 0)) {
         Pieza piezaFinal = Pieza.piezasTablero[fila][col];
-
+        if(piezaFinal == null){
         if (piezasIntermedias == 0 ) {
             return true;
-        }
+        }}
 
         else if (piezasIntermedias == 1 ) {
             return true;
